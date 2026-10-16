@@ -1,0 +1,170 @@
+// Krishimitara / KisanSetu Prisma Schema
+// Compatible with PostgreSQL / Supabase Free Tier
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  FARMER
+  AGRI_LAB
+  TRANSPORTER
+  GOVERNMENT
+  AGRO_COMPANY
+  SPONSOR_NGO
+  ADMIN
+}
+
+enum SyncStatus {
+  PENDING
+  SYNCED
+  FAILED
+}
+
+enum RequestStatus {
+  SUBMITTED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id            String         @id @default(uuid())
+  phone         String         @unique
+  name          String
+  role          Role           @default(FARMER)
+  state         String?
+  district      String?
+  pincode       String?
+  language      String         @default("hi")
+  avatarUrl     String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  farmer        FarmerProfile?
+  khataEntries  KhataEntry[]
+  soilTests     SoilTestRequest[] @relation("FarmerSoilTests")
+  labTests      SoilTestRequest[] @relation("LabSoilTests")
+  transportListings TransportListing[]
+  transporterBookings TransportBooking[] @relation("TransporterBookings")
+  farmerBookings    TransportBooking[] @relation("FarmerBookings")
+  marketListings    MarketListing[]
+}
+
+model FarmerProfile {
+  id             String   @id @default(uuid())
+  userId         String   @unique
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  landSizeAcres  Float    @default(0.0)
+  soilType       String?
+  irrigationType String?
+  primaryCrops   String[]
+  hasKccLoan     Boolean  @default(false)
+  createdAt      DateTime @default(now())
+}
+
+model KhataEntry {
+  id          String     @id @default(uuid())
+  userId      String
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  clientSyncId String?   @unique
+  type        String     // "INCOME" or "EXPENSE"
+  category    String     // "SEEDS", "FERTILIZER", "LABOR", "HARVEST_SALE", "SUBSIDY", "EQUIPMENT", "OTHER"
+  amount      Float
+  date        DateTime   @default(now())
+  description String?
+  syncStatus  SyncStatus @default(SYNCED)
+  createdAt   DateTime   @default(now())
+}
+
+model CropDiagnosis {
+  id             String   @id @default(uuid())
+  userId         String
+  cropName       String
+  diseaseName    String
+  confidence     Float
+  treatment      String
+  preventiveCare String
+  symptoms       String
+  imageUrl       String?
+  createdAt      DateTime @default(now())
+}
+
+model SoilTestRequest {
+  id             String        @id @default(uuid())
+  farmerId       String
+  farmer         User          @relation("FarmerSoilTests", fields: [farmerId], references: [id])
+  labId          String?
+  lab            User?         @relation("LabSoilTests", fields: [labId], references: [id])
+  sampleDetails  String
+  status         RequestStatus @default(SUBMITTED)
+  nitrogenLevel  Float?
+  phosphorusLevel Float?
+  potassiumLevel Float?
+  phValue        Float?
+  recommendation String?
+  reportPdfUrl   String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+model TransportListing {
+  id             String   @id @default(uuid())
+  transporterId  String
+  transporter    User     @relation(fields: [transporterId], references: [id])
+  vehicleType    String   // "PICKUP_TRUCK", "TRACTOR_TROLLEY", "MINI_TRUCK", "HEAVY_TRUCK"
+  vehicleNumber  String
+  capacityTonnes Float
+  baseLocation   String
+  serviceRadiusKm Int     @default(50)
+  ratePerKm      Float
+  available      Boolean  @default(true)
+  createdAt      DateTime @default(now())
+}
+
+model TransportBooking {
+  id            String        @id @default(uuid())
+  farmerId      String
+  farmer        User          @relation("FarmerBookings", fields: [farmerId], references: [id])
+  transporterId String
+  transporter   User          @relation("TransporterBookings", fields: [transporterId], references: [id])
+  cropType      String
+  tonnage       Float
+  pickupLoc     String
+  dropLoc       String
+  scheduledDate DateTime
+  status        RequestStatus @default(SUBMITTED)
+  estimatedCost Float?
+  createdAt     DateTime      @default(now())
+}
+
+model MarketListing {
+  id            String   @id @default(uuid())
+  sellerId      String
+  seller        User     @relation(fields: [sellerId], references: [id])
+  cropName      String
+  variety       String?
+  quantityQtl   Float
+  expectedRate  Float    // Per Quintal (INR)
+  mandiLocation String
+  harvestDate   DateTime?
+  status        String   @default("ACTIVE")
+  createdAt     DateTime @default(now())
+}
+
+model GovScheme {
+  id          String   @id @default(uuid())
+  name        String
+  ministry    String
+  benefit     String
+  eligibility String
+  portalUrl   String
+  category    String   // "SUBSIDY", "LOAN", "INSURANCE", "IRRIGATION", "SOLAR"
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
