@@ -95,19 +95,22 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* Role Switcher */}
             <div className="relative inline-block text-left">
-              <select
-                value={role}
-                onChange={(e) => setRole(e.target.value as Role)}
-                aria-label="Switch Role"
-                className="bg-agri-800/90 text-xs font-medium text-agri-100 border border-agri-600 rounded-lg py-1.5 px-2 focus:outline-none focus:ring-1 focus:ring-harvest-400 cursor-pointer"
-              >
-                <option value="FARMER">👨‍🌾 {lang === 'hi' ? 'किसान (Farmer)' : 'Farmer'}</option>
-                <option value="AGRI_LAB">🔬 {lang === 'hi' ? 'प्रयोगशाला (Agri Lab)' : 'Agri Lab'}</option>
-                <option value="TRANSPORTER">🚚 {lang === 'hi' ? 'ट्रांसपोर्टर (Logistics)' : 'Transporter'}</option>
-                <option value="GOVERNMENT">🏛️ {lang === 'hi' ? 'सरकारी अधिकारी (Govt)' : 'Govt Officer'}</option>
-                <option value="AGRO_COMPANY">🏢 {lang === 'hi' ? 'कृषि कंपनी (Agro Co)' : 'Agro Company'}</option>
-                <option value="SPONSOR_NGO">🤝 {lang === 'hi' ? 'सहयोगी संस्था (NGO)' : 'Sponsor/NGO'}</option>
-              </select>
+              <div className="flex items-center space-x-1 bg-agri-950/90 border border-harvest-500/80 rounded-xl px-2 py-1 shadow-sm">
+                <span className="text-[10px] text-harvest-400 font-bold uppercase hidden lg:inline">Role:</span>
+                <select
+                  value={role}
+                  onChange={(e) => setRole(e.target.value as Role)}
+                  aria-label="Switch Role"
+                  className="bg-transparent text-xs font-bold text-harvest-300 focus:outline-none cursor-pointer pr-1"
+                >
+                  <option value="FARMER" className="bg-agri-950 text-white">👨‍🌾 {lang === 'hi' ? 'किसान (Farmer)' : 'Farmer'}</option>
+                  <option value="AGRI_LAB" className="bg-agri-950 text-white">🔬 {lang === 'hi' ? 'प्रयोगशाला (Agri Lab)' : 'Agri Lab'}</option>
+                  <option value="TRANSPORTER" className="bg-agri-950 text-white">🚚 {lang === 'hi' ? 'ट्रांसपोर्टर (Logistics)' : 'Transporter'}</option>
+                  <option value="GOVERNMENT" className="bg-agri-950 text-white">🏛️ {lang === 'hi' ? 'सरकारी अधिकारी (Govt)' : 'Govt Officer'}</option>
+                  <option value="AGRO_COMPANY" className="bg-agri-950 text-white">🏢 {lang === 'hi' ? 'कृषि कंपनी (Agro Co)' : 'Agro Company'}</option>
+                  <option value="SPONSOR_NGO" className="bg-agri-950 text-white">🤝 {lang === 'hi' ? 'सहयोगी संस्था (NGO)' : 'Sponsor/NGO'}</option>
+                </select>
+              </div>
             </div>
 
             {/* Language Toggle */}

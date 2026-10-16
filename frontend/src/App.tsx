@@ -8,7 +8,9 @@ import {
   TrendingUp,
   Landmark,
   Mic,
-  Sparkles,
+  Building2,
+  Users,
+  ShieldAlert,
 } from 'lucide-react';
 import { Header } from './components/Header';
 import { VoiceAssistantModal } from './components/VoiceAssistantModal';
@@ -30,6 +32,7 @@ export const App: React.FC = () => {
   const [isVoiceOpen, setIsVoiceOpen] = useState(false);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [isSyncing, setIsSyncing] = useState(false);
+  const [roleToast, setRoleToast] = useState<string | null>(null);
 
   // Khata Global State
   const [khataEntries, setKhataEntries] = useState<KhataEntry[]>([]);
@@ -68,18 +71,25 @@ export const App: React.FC = () => {
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
 
-    // Initial check
-    api.checkHealth().then((healthy) => {
-      if (!healthy && isOnline) {
-        console.warn('Backend server is not running or unreachable on port 4000');
-      }
-    });
-
     return () => {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
     };
   }, []);
+
+  const handleRoleChange = (newRole: Role) => {
+    setRole(newRole);
+    const roleLabels: Record<Role, string> = {
+      FARMER: lang === 'hi' ? 'किसान (Farmer)' : 'Farmer',
+      AGRI_LAB: lang === 'hi' ? 'मृदा प्रयोगशाला (Agri Lab)' : 'Agri Lab Specialist',
+      TRANSPORTER: lang === 'hi' ? 'ट्रांसपोर्टर (Logistics)' : 'Transporter Hub',
+      GOVERNMENT: lang === 'hi' ? 'सरकारी कृषि अधिकारी (Govt)' : 'Govt Extension Officer',
+      AGRO_COMPANY: lang === 'hi' ? 'कृषि कंपनी (Agro Co)' : 'Agro Procurement Buyer',
+      SPONSOR_NGO: lang === 'hi' ? 'सहयोगी संस्था (NGO)' : 'Sponsor / NGO Director',
+    };
+    setRoleToast(roleLabels[newRole]);
+    setTimeout(() => setRoleToast(null), 3000);
+  };
 
   const handleSync = async () => {
     setIsSyncing(true);
@@ -98,15 +108,74 @@ export const App: React.FC = () => {
     await refreshKhata();
   };
 
-  const navItems = [
-    { id: 'dashboard', label: t.nav.dashboard, icon: LayoutDashboard },
-    { id: 'khata', label: t.nav.khata, icon: BookOpen, badge: pendingQueueCount > 0 ? pendingQueueCount : undefined },
-    { id: 'doctor', label: t.nav.doctor, icon: Bug },
-    { id: 'soil', label: t.nav.soil, icon: FlaskConical },
-    { id: 'transport', label: t.nav.transport, icon: Truck },
-    { id: 'market', label: t.nav.market, icon: TrendingUp },
-    { id: 'schemes', label: t.nav.schemes, icon: Landmark },
-  ];
+  interface NavItem {
+    id: string;
+    label: string;
+    icon: any;
+    badge?: number;
+  }
+
+  // Role-customized navigation items
+  const getNavItemsForRole = (): NavItem[] => {
+    const common: NavItem[] = [
+      { id: 'dashboard', label: t.nav.dashboard, icon: LayoutDashboard },
+    ];
+
+    switch (role) {
+      case 'AGRI_LAB':
+        return [
+          ...common,
+          { id: 'soil', label: lang === 'hi' ? 'लैब परीक्षण व नमूने' : 'Lab Soil Testing', icon: FlaskConical },
+          { id: 'doctor', label: lang === 'hi' ? 'फसल रोग परामर्श' : 'Crop Disease Guide', icon: Bug },
+          { id: 'schemes', label: lang === 'hi' ? 'लैब सब्सिडी योजनाएं' : 'Lab Grants & Schemes', icon: Landmark },
+          { id: 'market', label: t.nav.market, icon: TrendingUp },
+        ];
+      case 'TRANSPORTER':
+        return [
+          ...common,
+          { id: 'transport', label: lang === 'hi' ? 'फ्लीट व बुकिंग' : 'Fleet & Dispatch Bookings', icon: Truck },
+          { id: 'market', label: lang === 'hi' ? 'मंडी आवक भाव' : 'Mandi Inflow Rates', icon: TrendingUp },
+          { id: 'khata', label: lang === 'hi' ? 'डीजल व ट्रिप खाता' : 'Transit Khata', icon: BookOpen },
+        ];
+      case 'GOVERNMENT':
+        return [
+          ...common,
+          { id: 'schemes', label: lang === 'hi' ? 'सरकारी योजनाएं व सब्सिडी' : 'Schemes & Verification', icon: Landmark },
+          { id: 'doctor', label: lang === 'hi' ? 'जिला कीट प्रकोप मॉनिटरिंग' : 'Pest Outbreak Alert', icon: Bug },
+          { id: 'market', label: lang === 'hi' ? 'एमएसपी व थोक भाव' : 'MSP & Price Surveillance', icon: TrendingUp },
+          { id: 'soil', label: lang === 'hi' ? 'जिला मृदा स्वास्थ्य' : 'District Soil Health', icon: FlaskConical },
+        ];
+      case 'AGRO_COMPANY':
+        return [
+          ...common,
+          { id: 'market', label: lang === 'hi' ? 'थोक फसल खरीद व लॉट' : 'Direct Mandi Procurement', icon: TrendingUp },
+          { id: 'transport', label: lang === 'hi' ? 'थोक माल परिवहन' : 'Freight Logistics', icon: Truck },
+          { id: 'doctor', label: lang === 'hi' ? 'प्रमाणित बीज व इनपुट' : 'Seed & Input Catalog', icon: Bug },
+          { id: 'soil', label: lang === 'hi' ? 'मृदा प्रमाणन जांच' : 'Soil Quality Verification', icon: FlaskConical },
+        ];
+      case 'SPONSOR_NGO':
+        return [
+          ...common,
+          { id: 'schemes', label: lang === 'hi' ? 'सीएसआर अनुदान व सहायता' : 'CSR Grants & Subsidies', icon: Landmark },
+          { id: 'soil', label: lang === 'hi' ? 'मुफ्त मिट्टी जांच प्रोजेक्ट' : 'Sponsored Soil Testing', icon: FlaskConical },
+          { id: 'khata', label: lang === 'hi' ? 'किसान बचत आंकड़े' : 'Farmer Income Impact', icon: BookOpen },
+          { id: 'doctor', label: lang === 'hi' ? 'जैविक खेती कार्यशालाएं' : 'Organic Training', icon: Bug },
+        ];
+      case 'FARMER':
+      default:
+        return [
+          ...common,
+          { id: 'khata', label: t.nav.khata, icon: BookOpen, badge: pendingQueueCount > 0 ? pendingQueueCount : undefined },
+          { id: 'doctor', label: t.nav.doctor, icon: Bug },
+          { id: 'soil', label: t.nav.soil, icon: FlaskConical },
+          { id: 'transport', label: t.nav.transport, icon: Truck },
+          { id: 'market', label: t.nav.market, icon: TrendingUp },
+          { id: 'schemes', label: t.nav.schemes, icon: Landmark },
+        ];
+    }
+  };
+
+  const navItems = getNavItemsForRole();
 
   return (
     <div className="min-h-screen bg-stone-100 flex flex-col font-sans pb-20 md:pb-6">
@@ -122,8 +191,19 @@ export const App: React.FC = () => {
         isSyncing={isSyncing}
         onOpenVoice={() => setIsVoiceOpen(true)}
         role={role}
-        setRole={setRole}
+        setRole={handleRoleChange}
       />
+
+      {/* Role Switch Feedback Toast */}
+      {roleToast && (
+        <div className="fixed top-20 right-4 z-50 animate-bounce bg-agri-950 text-white px-4 py-2.5 rounded-2xl shadow-2xl border border-harvest-400/60 flex items-center space-x-2 text-xs">
+          <span className="w-2.5 h-2.5 rounded-full bg-harvest-400 animate-ping" />
+          <span className="font-semibold text-agri-200">
+            {lang === 'hi' ? 'सक्रिय भूमिका बदली गई:' : 'Active Role Switched to:'}
+          </span>
+          <strong className="text-harvest-300 font-extrabold">{roleToast}</strong>
+        </div>
+      )}
 
       {/* Main Container */}
       <div className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -131,8 +211,11 @@ export const App: React.FC = () => {
           {/* Desktop Navigation Sidebar */}
           <aside className="hidden md:block md:col-span-3 lg:col-span-3">
             <div className="sticky top-24 glass-panel p-3 rounded-3xl border border-stone-200/80 shadow-sm space-y-1">
-              <div className="px-3 py-2 text-[11px] font-bold text-stone-400 uppercase tracking-wider">
-                {lang === 'hi' ? 'मुख्य मेनू' : 'Main Menu'}
+              <div className="px-3 py-2 text-[11px] font-bold text-stone-400 uppercase tracking-wider flex items-center justify-between">
+                <span>{lang === 'hi' ? 'नेविगेशन' : 'Workspace Navigation'}</span>
+                <span className="text-[10px] text-agri-700 font-extrabold uppercase bg-agri-100 px-1.5 py-0.5 rounded">
+                  {role}
+                </span>
               </div>
               {navItems.map((item) => {
                 const Icon = item.icon;
@@ -149,7 +232,7 @@ export const App: React.FC = () => {
                   >
                     <div className="flex items-center space-x-2.5">
                       <Icon className={`w-4 h-4 ${active ? 'text-harvest-400' : 'text-stone-500'}`} />
-                      <span>{item.label}</span>
+                      <span className="truncate">{item.label}</span>
                     </div>
                     {item.badge && (
                       <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500 text-agri-950">
