@@ -92,6 +92,7 @@ npx.cmd serve krishimitara-website
 ---
 
 ## 📖 Documentation
+- [Executive Project Proposal & Business Dossier](docs/EXECUTIVE_PROJECT_PROPOSAL.md)
 - [Setup & Deployment Guide](docs/SETUP.md)
 - [System Architecture & Offline Sync](docs/ARCHITECTURE.md)
 - [Stakeholder Role Matrix](docs/ROLE_MATRIX.md)

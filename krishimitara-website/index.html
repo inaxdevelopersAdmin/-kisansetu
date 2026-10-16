@@ -1,189 +1,814 @@
 <!doctype html>
-<html lang="en">
+<html lang="gu">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#153c2b">
-  <meta name="description" content="Krishimitara connects Indian farmers with agricultural labs, transport providers, companies, government resources and sponsors.">
-  <title>Krishimitara — Growing Together</title>
+  <meta name="theme-color" content="#16a34a">
+  <meta name="description" content="KisanSetu / Krishimitara - Seed stage digital agriculture platform for Indian farmers, government agencies, and corporate agritech partners.">
+  <title>Krishimitara / KisanSetu — Seed Stage Digital Agriculture Ecosystem</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+Gujarati:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Header -->
   <header class="site-header">
     <div class="container nav-wrap">
       <a class="brand" href="#home" aria-label="Krishimitara home">
-        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 33V18M20 24C10 24 7 17 7 9c9 0 15 4 13 15ZM21 19C21 10 27 5 35 5c0 9-4 15-14 14Z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 34h23" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span>
-        <span class="brand-name">krishi<span>mitara</span><small>GROWING TOGETHER</small></span>
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40"><path d="M20 33V18M20 24C10 24 7 17 7 9c9 0 15 4 13 15ZM21 19C21 10 27 5 35 5c0 9-4 15-14 14Z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 34h23" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
+        </span>
+        <span class="brand-name">krishi<span>mitara</span><small>KISANSETU ECOSYSTEM</small></span>
       </a>
-      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
-      <nav class="main-nav" id="mainNav" aria-label="Main navigation">
-        <a href="#ecosystem">Our ecosystem</a>
-        <a href="#how-it-works">How it works</a>
-        <a href="#partners">Partners</a>
-        <a href="#about">About</a>
-        <a class="nav-cta" href="#join">Join the network <span aria-hidden="true">↗</span></a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation"><span></span><span></span><span></span></button>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="#ecosystem" data-i18n="nav_ecosystem">ઇકોસિસ્ટમ</a>
+        <a href="#market" data-i18n="nav_market">બજાર તક</a>
+        <a href="#tech" data-i18n="nav_tech">ટેકનોલોજી</a>
+        <a href="#partnerships" data-i18n="nav_gov">સરકારી સહભાગી</a>
+        <a href="#partnerships" data-i18n="nav_corp">કોર્પોરેટ પાર્ટનર્સ</a>
+        <a href="#calculator" data-i18n="nav_impact">નફો અને બચત</a>
+        <a href="#roadmap" data-i18n="nav_roadmap">રોડમેપ</a>
+
+        <!-- Language Switcher -->
+        <div class="lang-switch">
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="hi">हिन्दी</button>
+          <button class="lang-btn active" data-lang="gu">ગુજરાતી</button>
+        </div>
+
+        <!-- Launch Live App CTA -->
+        <a class="nav-cta" href="http://localhost:5173/" target="_blank" data-i18n="nav_app">લાઇવ એપ ↗</a>
       </nav>
     </div>
   </header>
 
   <main id="main">
+    <!-- Hero Section (Slide 1 & Slide 3) -->
     <section class="hero" id="home">
-      <div class="hero-pattern" aria-hidden="true"></div>
       <div class="container hero-grid">
         <div class="hero-copy">
-          <div class="eyebrow"><span class="eyebrow-dot"></span> ONE CONNECTED AGRICULTURE NETWORK</div>
-          <h1>Stronger farms.<br><em>Stronger India.</em></h1>
-          <p class="hero-lead">A simpler way to connect farmers with the knowledge, services and people that help agriculture move forward.</p>
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            <span data-i18n="hero_badge">સીડ સ્ટેજ પિચ ડેક · કિસાનસેતુ નેટવર્ક</span>
+          </div>
+
+          <h1 data-i18n="hero_title">સશક્ત ખેડૂત.<br><em>સમૃદ્ધ ભારત.</em></h1>
+
+          <p class="hero-lead" data-i18n="hero_lead">
+            ભારતીય ખેડૂતો માટે ઓલ-ઇન-વન ડિજિટલ કૃષિ ઇકોસિસ્ટમ. ઇન્ટરનેટ વિના પણ ચાલતું (ઓફલાઇન-ફર્સ્ટ), માતૃભાષામાં બોલીને પૂછી શકાય તેવું અને ખેડૂતને સીધા લેબ, ટ્રાન્સપોર્ટ, માર્કેટ યાર્ડ અને સરકારી સહાય સાથે જોડતું પ્લેટફોર્મ.
+          </p>
+
           <div class="hero-actions">
-            <a class="button button-primary" href="#ecosystem">Explore the ecosystem <span>↗</span></a>
-            <a class="button button-quiet" href="#join">Become a partner</a>
-          </div>
-          <div class="hero-proof">
-            <div class="proof-icon">✳</div>
-            <p><strong>Built around real farming needs</strong><br><span>Local-first thinking · Regional languages · Connected services</span></p>
+            <a class="btn btn-primary" href="#ecosystem" data-i18n="btn_explore">ઇકોસિસ્ટમ જુઓ ↓</a>
+            <button class="btn btn-secondary" id="openDossierBtn" style="cursor: pointer;" data-i18n="btn_dossier">📄 સરકારી / કોર્પોરેટ પ્રપોઝલ ડોઝિયર</button>
+            <a class="btn btn-secondary" href="#join" data-i18n="btn_partner">પાર્ટનર બનો</a>
+            <a class="btn btn-primary" href="http://localhost:5173/" target="_blank" style="background: linear-gradient(135deg, #059669, #10b981);">
+              <span>⚡ Open Live PWA App ↗</span>
+            </a>
           </div>
         </div>
-        <div class="hero-visual" aria-label="Illustration of a connected farm">
-          <div class="visual-sun"></div>
-          <div class="visual-cloud cloud-one"></div><div class="visual-cloud cloud-two"></div>
-          <div class="field field-back"></div><div class="field field-mid"></div><div class="field field-front"></div>
-          <div class="farm-house"><div class="roof"></div><div class="house-body"><div class="window"></div><div class="door"></div></div></div>
-          <div class="crop crop-a"><i></i><i></i><b></b></div><div class="crop crop-b"><i></i><i></i><b></b></div><div class="crop crop-c"><i></i><i></i><b></b></div>
-          <div class="floating-card card-weather"><span class="mini-icon sun-icon">☼</span><div><small>LOCAL WEATHER</small><strong>Plan with confidence</strong></div></div>
-          <div class="floating-card card-network"><span class="mini-icon people-icon">↗</span><div><small>ONE NETWORK</small><strong>Farm to market</strong></div></div>
-          <div class="visual-label">A better-connected future starts here.</div>
+
+        <!-- Pitch Deck Market Readiness Card -->
+        <div class="pitch-card" id="market">
+          <span class="pitch-pill" data-i18n="pitch_pill">માર્કેટ તત્પરતા આંકડા</span>
+          <h3 style="font-size: 20px; font-weight: 800; margin: 0 0 10px; color: #0f172a;">India Agriculture Readiness</h3>
+          <p style="font-size: 13px; color: #64748b; margin: 0 0 16px;">
+            Massive macro tailwinds creating the right foundation for KisanSetu:
+          </p>
+
+          <div class="pitch-stat-grid">
+            <div class="stat-box">
+              <div class="stat-num" data-i18n="stat_market_val">$500B</div>
+              <div class="stat-label" data-i18n="stat_market_lbl">૨૦૨૬ સુધીમાં ભારતીય કૃષિ બજાર</div>
+              <div class="stat-desc">Projected Agri Market Volume</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-num" data-i18n="stat_smart_val">86%</div>
+              <div class="stat-label" data-i18n="stat_smart_lbl">ખેડૂતો પાસે સ્માર્ટફોન ધરાવતા દર</div>
+              <div class="stat-desc">Mobile Penetration in Rural India</div>
+            </div>
+          </div>
+
+          <ul class="pitch-highlights">
+            <li data-i18n="h1_feat1">ઝીરો-લેટન્સી ઓફલાઇન ખાતાવહી અને પાક નિદાન</li>
+            <li data-i18n="h1_feat2">દલાલો અને વચેટિયાઓના શોષણનો સંપૂર્ણ અંત</li>
+            <li data-i18n="h1_feat3">ગુજરાતી, હિન્દી અને સ્થાનિક ભાષાઓમાં સરળ ઉપયોગ</li>
+          </ul>
         </div>
-      </div>
-      <div class="hero-bottom container">
-        <span>MADE FOR INDIA'S AGRICULTURAL ECOSYSTEM</span>
-        <div class="hero-bottom-line"></div>
-        <span>FARMERS · SERVICES · OPPORTUNITY</span>
       </div>
     </section>
 
-    <section class="intro-section section-pad" id="about">
-      <div class="container intro-grid">
-        <div><div class="section-kicker">THE OPPORTUNITY</div><h2>Farming takes a village.<br><em>Let's connect it.</em></h2></div>
-        <div class="intro-text"><p>Useful farming services can be spread across different places, people and apps. Krishimitara aims to bring the ecosystem closer together—so farmers can discover support, service providers can reach customers, and organisations can work together.</p><p class="small-note">Our vision is to grow in phases, starting with practical daily utilities and expanding through trusted local partnerships.</p></div>
-      </div>
-    </section>
-
-    <section class="ecosystem-section section-pad" id="ecosystem">
+    <!-- Problem: Connectivity Divide (Slide 2) -->
+    <section class="section-pad" style="background: #ffffff;">
       <div class="container">
-        <div class="section-heading">
-          <div><div class="section-kicker">ONE PLATFORM · MANY CONNECTIONS</div><h2>Meet your <em>agriculture network.</em></h2></div>
-          <p>Choose your role to see how Krishimitara can help you connect, discover and grow.</p>
+        <div class="section-head">
+          <span class="section-tag" data-i18n="divide_tag">મુખ્ય સમસ્યા</span>
+          <h2 data-i18n="divide_title">કૃષિ ક્ષેત્રે <em>કનેક્ટિવિટીનો મોટો પડકાર</em></h2>
+          <p class="section-subtitle" data-i18n="divide_sub">
+            શા માટે હાલની એપ્સ ૧૪ કરોડ ખેડૂતો માટે નિષ્ફળ રહી છે:
+          </p>
         </div>
-        <div class="ecosystem-grid">
-          <article class="role-card role-farmer">
-            <div class="role-top"><span class="role-icon">♧</span><span class="role-number">01 / FARMERS</span></div>
-            <h3>For farmers</h3><p>Practical tools and trusted information for everyday farm decisions.</p>
-            <ul><li>Crop guidance and disease awareness</li><li>Weather and scheme information</li><li>Farm income and expense records</li><li>Discover buyers and local services</li></ul>
-            <a href="#join" class="text-link" data-role="Farmer">I'm a farmer <span>↗</span></a>
-          </article>
-          <article class="role-card role-lab">
-            <div class="role-top"><span class="role-icon">⌕</span><span class="role-number">02 / LABS</span></div>
-            <h3>For agricultural labs</h3><p>Help farmers find testing and expert support closer to home.</p>
-            <ul><li>Soil and water testing services</li><li>Lab locations and service details</li><li>Sample collection enquiries</li><li>Share reports through a trusted workflow</li></ul>
-            <a href="#join" class="text-link" data-role="Agricultural lab">Register a lab <span>↗</span></a>
-          </article>
-          <article class="role-card role-transport">
-            <div class="role-top"><span class="role-icon">⇄</span><span class="role-number">03 / TRANSPORT</span></div>
-            <h3>For transport providers</h3><p>Make it easier to connect farm produce with the next destination.</p>
-            <ul><li>Transporter and vehicle listings</li><li>Local pickup and delivery requests</li><li>Route and service-area information</li><li>Business profile visibility</li></ul>
-            <a href="#join" class="text-link" data-role="Transport provider">List transport services <span>↗</span></a>
-          </article>
-          <article class="role-card role-government">
-            <div class="role-top"><span class="role-icon">⌂</span><span class="role-number">04 / PUBLIC SERVICES</span></div>
-            <h3>For government & institutions</h3><p>Help people discover verified agricultural programmes and resources.</p>
-            <ul><li>Official scheme information</li><li>Department and extension resources</li><li>Awareness and training announcements</li><li>Local programme discovery</li></ul>
-            <a href="#join" class="text-link" data-role="Government or institution">Discuss collaboration <span>↗</span></a>
-          </article>
-          <article class="role-card role-company">
-            <div class="role-top"><span class="role-icon">▦</span><span class="role-number">05 / COMPANIES</span></div>
-            <h3>For agriculture companies</h3><p>Build useful connections with the farming communities you serve.</p>
-            <ul><li>Equipment and input information</li><li>Service and dealer discovery</li><li>Farmer education initiatives</li><li>Responsible business partnerships</li></ul>
-            <a href="#join" class="text-link" data-role="Agriculture company">Partner with us <span>↗</span></a>
-          </article>
-          <article class="role-card role-sponsor">
-            <div class="role-top"><span class="role-icon">✳</span><span class="role-number">06 / SPONSORS</span></div>
-            <h3>For sponsors & NGOs</h3><p>Support practical initiatives that can create value for rural communities.</p>
-            <ul><li>Farmer awareness campaigns</li><li>Training and community programmes</li><li>Impact-focused collaborations</li><li>Transparent campaign objectives</li></ul>
-            <a href="#join" class="text-link" data-role="Sponsor or NGO">Explore sponsorship <span>↗</span></a>
-          </article>
-        </div>
-        <p class="section-footnote">These are planned service areas. Availability will depend on rollout, local partners and verification.</p>
-      </div>
-    </section>
 
-    <section class="principles-section section-pad" id="how-it-works">
-      <div class="container principles-grid">
-        <div class="principles-copy"><div class="section-kicker">DESIGNED FOR REAL CONDITIONS</div><h2>Useful in the field.<br><em>Ready to grow.</em></h2><p>Digital agriculture should work for people with different devices, languages and levels of connectivity. Our product direction puts accessibility and trust first.</p><a class="text-link dark-link" href="#join">Help shape the pilot <span>↗</span></a></div>
-        <div class="principle-list">
-          <div class="principle"><span class="principle-no">01</span><div><h3>Regional-language friendly</h3><p>Plan for simple language and voice-guided experiences across Indian regions.</p></div><span class="principle-symbol">Aa</span></div>
-          <div class="principle"><span class="principle-no">02</span><div><h3>Offline-aware by design</h3><p>Prioritise essential information and records that can work with limited connectivity.</p></div><span class="principle-symbol">⌁</span></div>
-          <div class="principle"><span class="principle-no">03</span><div><h3>Trust before transactions</h3><p>Make provider identity, source links and service details clear wherever possible.</p></div><span class="principle-symbol">✓</span></div>
-          <div class="principle"><span class="principle-no">04</span><div><h3>Build in practical phases</h3><p>Start small, learn from local pilots, and expand when services are ready.</p></div><span class="principle-symbol">↗</span></div>
+        <div class="divide-grid">
+          <div class="divide-card">
+            <div class="divide-icon">📱</div>
+            <h3 data-i18n="prob1_title">વિભાજિત વ્યવસ્થા</h3>
+            <p data-i18n="prob1_desc">
+              ખેડૂતોને હવામાન, મંડી ભાવ, ખાતર અને હિસાબ માટે ૫ અલગ-અલગ એપ્સ વચ્ચે હેરાન થવું પડે છે.
+            </p>
+          </div>
+
+          <div class="divide-card">
+            <div class="divide-icon">🗣️</div>
+            <h3 data-i18n="prob2_title">ભાષા અને ઉપયોગની મુશ્કેલી</h3>
+            <p data-i18n="prob2_desc">
+              અંગ્રેજી અને મુશ્કેલ ટેક્સ્ટવાળી એપ્સ ઓછું ભણેલા ગ્રામીણ ખેડૂતો માટે મુશ્કેલ બને છે.
+            </p>
+          </div>
+
+          <div class="divide-card">
+            <div class="divide-icon">📶</div>
+            <h3 data-i18n="prob3_title">નેટવર્ક વિના ફેલ</h3>
+            <p data-i18n="prob3_desc">
+              ખેતરમાં ઇન્ટરનેટ બંધ થતાં જ તમામ જૂની એપ્સ ક્રેશ કે બંધ થઈ જાય છે.
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="roadmap-section section-pad">
+    <!-- The 3 Macro Crises in Indian Agriculture -->
+    <section class="section-pad" style="background: #fafaf9; border-top: 1px solid #f5f5f4; border-bottom: 1px solid #f5f5f4;">
       <div class="container">
-        <div class="section-heading">
-          <div><div class="section-kicker">A PRACTICAL PATH FORWARD</div><h2>Start focused.<br><em>Grow together.</em></h2></div>
-          <p>Our initial plan is phased so the platform can learn from real farmers and local service partners before expanding.</p>
+        <div class="section-head">
+          <span class="section-tag" style="background: #ffe4e6; color: #be123c;" data-i18n="crises_tag">૩ મોટા રાષ્ટ્રીય પડકારો</span>
+          <h2 data-i18n="crises_title">શા માટે કિસાનસેતુ <em>ભારત માટે અનિવાર્ય છે?</em></h2>
+          <p class="section-subtitle" data-i18n="crises_sub">
+            ગ્રામીણ કૃષિ અર્થવ્યવસ્થામાં વાર્ષિક હજારો કરોડનું થતું નુકસાન અટકાવવું:
+          </p>
         </div>
-        <div class="roadmap">
-          <article><span class="phase">PHASE 01 · MONTHS 1–3</span><div class="phase-marker">01</div><h3>Daily farm utilities</h3><p>Explore an offline khata ledger, crop-disease awareness and weather alerts.</p></article>
-          <article><span class="phase">PHASE 02 · MONTHS 4–6</span><div class="phase-marker">02</div><h3>Local service network</h3><p>Test equipment rentals, worker discovery and community information.</p></article>
-          <article><span class="phase">PHASE 03 · MONTHS 7–9</span><div class="phase-marker">03</div><h3>Market connections</h3><p>Explore buyer listings, transport coordination and payment integrations.</p></article>
+
+        <div class="divide-grid">
+          <div class="divide-card" style="border-color: #fecdd3; background: #fff;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="background: #ffe4e6; color: #9f1239; font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 999px;">CRISIS #1</span>
+              <span style="font-weight: 900; color: #e11d48; font-size: 13px;">₹92,651 Cr Waste</span>
+            </div>
+            <h3 data-i18n="c1_title">કાપણી પછીનું નુકસાન અને વાહન અભાવ</h3>
+            <p data-i18n="c1_desc">
+              વાહન ન મળતાં ૧૮% થી ૨૨% શાકભાજી અને કઠોળ ખેતરમાં જ સડી જાય છે. કિસાનસેતુ ૧૫ કિમી ત્રિજ્યામાં ટ્રેક્ટર-ટ્રોલી મેળવી આપે છે.
+            </p>
+          </div>
+
+          <div class="divide-card" style="border-color: #fecdd3; background: #fff;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="background: #ffe4e6; color: #9f1239; font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 999px;">CRISIS #2</span>
+              <span style="font-weight: 900; color: #e11d48; font-size: 13px;">₹28,000 Cr Loss</span>
+            </div>
+            <h3 data-i18n="c2_title">રસાયણોનો અતિરેક અને જમીન બગાડ</h3>
+            <p data-i18n="c2_desc">
+              અયોગ્ય યુરિયા અને DAP વાપરવાથી જમીનનું ઓર્ગેનિક કાર્બન ૦.૪% થી ઘટી ગયું છે. કિસાનસેતુ સોઇલ કાર્ડથી એકરે ₹૧,૪૫૦ બચે છે.
+            </p>
+          </div>
+
+          <div class="divide-card" style="border-color: #fecdd3; background: #fff;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="background: #ffe4e6; color: #9f1239; font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 999px;">CRISIS #3</span>
+              <span style="font-weight: 900; color: #e11d48; font-size: 13px;">25% Margin Cut</span>
+            </div>
+            <h3 data-i18n="c3_title">દલાલોનું શોષણ અને લાચારીથી વેચાણ</h3>
+            <p data-i18n="c3_desc">
+              ભાવ ન જાણતાં ખેડૂતો ટેકાના ભાવથી ૨૫% સસ્તામાં માલ વેચી દે છે. કિસાનસેતુ મિલ માલિકો અને કોર્પોરેટ સાથે સીધા સોદા કરાવે છે.
+            </p>
+          </div>
         </div>
-        <p class="section-footnote">Indicative roadmap from the concept pitch, not a promise of launch dates or currently available services.</p>
       </div>
     </section>
 
-    <section class="partner-section section-pad" id="partners">
-      <div class="container partner-banner">
-        <div><div class="section-kicker light-kicker">BETTER AGRICULTURE TAKES PARTNERSHIP</div><h2>Let's make the<br><em>connections count.</em></h2><p>Are you a farmer group, lab, transporter, institution, company or sponsor? Tell us what you do and what kind of collaboration you have in mind.</p><a class="button button-light" href="#join">Start a conversation <span>↗</span></a></div>
-        <div class="partner-orbit" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit-center">K<span>✳</span></div><span class="orbit-node node-one">FARM</span><span class="orbit-node node-two">LAB</span><span class="orbit-node node-three">MOVE</span><span class="orbit-node node-four">GROW</span></div>
+    <!-- Solution: 4 Integrated Pillars (Slide 4) -->
+    <section class="section-pad" id="ecosystem" style="background: #f0fdf4;">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag" data-i18n="pillars_tag">અમારો ઉકેલ</span>
+          <h2 data-i18n="pillars_title">સંકલિત <em>ડિજિટલ ઇકોસિસ્ટમ</em></h2>
+          <p class="section-subtitle" data-i18n="pillars_sub">
+            ગ્રામીણ વાસ્તવિકતા મુજબ તૈયાર કરેલ ૪ મુખ્ય આધારસ્તંભ:
+          </p>
+        </div>
+
+        <div class="pillars-grid">
+          <div class="pillar-card">
+            <div class="pillar-icon">🌱</div>
+            <h3 data-i18n="pil1_title">કૃષિ-બુદ્ધિમત્તા (AI)</h3>
+            <p data-i18n="pil1_desc">
+              પાંદડાના ફોટાથી તરત પાક રોગ નિદાન, હવામાન ચેતવણી અને બોલીને સરકારી યોજના માર્ગદર્શન.
+            </p>
+          </div>
+
+          <div class="pillar-card">
+            <div class="pillar-icon">📖</div>
+            <h3 data-i18n="pil2_title">ખેત સંચાલન (ખાતાવહી)</h3>
+            <p data-i18n="pil2_desc">
+              નેટ વિના ચાલતી ડિજિટલ ખાતાવહી, ટ્રેક્ટર-ઓજારો ભાડે અને મજૂર બુકિંગ સેવા.
+            </p>
+          </div>
+
+          <div class="pillar-card">
+            <div class="pillar-icon">⚖️</div>
+            <h3 data-i18n="pil3_title">બજાર અને અર્થવ્યવસ્થા</h3>
+            <p data-i18n="pil3_desc">
+              ખેડૂતોથી સીધું વેચાણ, કિલોમીટર મુજબ પાક ટ્રાન્સપોર્ટ અને સરળ UPI ડિજિટલ પેમેન્ટ.
+            </p>
+          </div>
+
+          <div class="pillar-card">
+            <div class="pillar-icon">🤝</div>
+            <h3 data-i18n="pil4_title">૬ હિતધારકોનું નેટવર્ક</h3>
+            <p data-i18n="pil4_desc">
+              ખેડૂત, લેબ, વાહન માલિક, સરકાર, એગ્રો કંપની અને NGO નું એક જ પ્લેટફોર્મ.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="join-section section-pad" id="join">
-      <div class="container join-grid">
-        <div><div class="section-kicker">JOIN THE EARLY NETWORK</div><h2>Help us build<br><em>what farmers need.</em></h2><p class="join-intro">Share a few details. This starter website will prepare an email enquiry for you; it does not yet store submissions in a database.</p><div class="contact-note"><span>✳</span><p><strong>Building with local insight</strong><br><small>We welcome pilot discussions, community feedback and responsible partnerships.</small></p></div></div>
-        <form class="join-form" id="joinForm">
-          <div class="form-row">
-            <label for="fullName">Your name <span>*</span><input id="fullName" name="fullName" required placeholder="Enter your name" autocomplete="name"></label>
-            <label for="role">I am a <span>*</span><select id="role" name="role" required><option value="">Choose your role</option><option>Farmer / farmer group</option><option>Agricultural lab</option><option>Transport provider</option><option>Government / institution</option><option>Agriculture company</option><option>Sponsor / NGO</option><option>Other</option></select></label>
+    <!-- National Government Schemes & DBT Matrix -->
+    <section class="section-pad" id="schemes" style="background: #ffffff;">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag" data-i18n="sch_tag">સરકારી યોજનાઓ અને DBT</span>
+          <h2 data-i18n="sch_title">કેન્દ્ર અને રાજ્ય સરકારની <em>૬ યોજનાઓનું સીધું જોડાણ</em></h2>
+          <p class="section-subtitle" data-i18n="sch_sub">
+            ૧૦૦% ડિજિટલ વેરિફિકેશન અને વચેટિયા વગર સીધી સહાય:
+          </p>
+        </div>
+
+        <div class="pillars-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+          <div class="pillar-card" style="border-color: #bbf7d0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-size: 11px; font-weight: 800; background: #ecfdf5; color: #15803d; padding: 2px 8px; border-radius: 6px;">આવક સહાય</span>
+              <span style="font-weight: 800; color: #16a34a; font-size: 13px;">₹6,000 / વર્ષ</span>
+            </div>
+            <h3 data-i18n="sch1_title">PM-કિસાન સન્માન નિધિ</h3>
+            <p data-i18n="sch1_desc">વર્ષમાં ₹૨,૦૦૦ ના ૩ હપ્તામાં સીધી ખેડૂતના ખાતામાં જમા. કિસાનસેતુ મારફત આધાર e-KYC અને સ્ટેટસ ટ્રેકિંગ ૧ મિનિટમાં.</p>
           </div>
-          <div class="form-row">
-            <label for="email">Email address<input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email"></label>
-            <label for="phone">Phone number<input id="phone" name="phone" type="tel" placeholder="Optional" autocomplete="tel"></label>
+
+          <div class="pillar-card" style="border-color: #bbf7d0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-size: 11px; font-weight: 800; background: #ecfdf5; color: #15803d; padding: 2px 8px; border-radius: 6px;">પાક વીમો</span>
+              <span style="font-weight: 800; color: #16a34a; font-size: 13px;">૧૦૦% નુકસાન કવર</span>
+            </div>
+            <h3 data-i18n="sch2_title">PM ફસલ બીમા યોજના (PMFBY)</h3>
+            <p data-i18n="sch2_desc">કમોસમી વરસાદ કે કરાના ૭૨ કલાકમાં ખેતરમાંથી ફોટો અપલોડ કરી ડિજિટલ ક્લેઈમ ફાઈલિંગ. સર્વેયર વિલંબ વગર સીધી સહાય.</p>
           </div>
-          <label for="location">City / district / state<input id="location" name="location" placeholder="e.g. Surat, Gujarat"></label>
-          <label for="message">How would you like to work together? <span>*</span><textarea id="message" name="message" required rows="4" placeholder="Tell us about your needs, services or partnership idea..."></textarea></label>
-          <label class="consent"><input type="checkbox" id="consent" required><span>I agree that my details may be used to respond to this enquiry.</span></label>
-          <button class="button button-primary submit-button" type="submit">Prepare enquiry <span>↗</span></button>
-          <p class="form-help" id="formMessage" role="status">No backend is connected yet. Add your official contact email in <code>script.js</code> before publishing.</p>
-        </form>
+
+          <div class="pillar-card" style="border-color: #bbf7d0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-size: 11px; font-weight: 800; background: #ecfdf5; color: #15803d; padding: 2px 8px; border-radius: 6px;">જમીન પોષણ</span>
+              <span style="font-weight: 800; color: #16a34a; font-size: 13px;">₹૧,૪૫૦/એકર બચત</span>
+            </div>
+            <h3 data-i18n="sch3_title">ડિજિટલ સોઇલ હેલ્થ કાર્ડ</h3>
+            <p data-i18n="sch3_desc">KVK માન્ય લેબ ટેસ્ટિંગ દ્વારા N, P, K અને pH ની ચોક્કસ માત્રા. બિનજરૂરી યુરિયા ખર્ચમાં ૨૪% ઘટાડો.</p>
+          </div>
+
+          <div class="pillar-card" style="border-color: #bbf7d0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-size: 11px; font-weight: 800; background: #ecfdf5; color: #15803d; padding: 2px 8px; border-radius: 6px;">સોલાર સિંચાઈ</span>
+              <span style="font-weight: 800; color: #16a34a; font-size: 13px;">૬૦% - ૭૦% સબસિડી</span>
+            </div>
+            <h3 data-i18n="sch4_title">PM-કુસુમ સોલાર પંપ યોજના</h3>
+            <p data-i18n="sch4_desc">ડીઝલ પંપની જગ્યાએ સૌર ઊર્જા સંચાલિત સિંચાઈ પંપ. ખેતીવાડી ખાતામાં ડિજિટલ અરજી અને ક્વોટા સ્ટેટસ ટ્રેકિંગ.</p>
+          </div>
+
+          <div class="pillar-card" style="border-color: #bbf7d0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-size: 11px; font-weight: 800; background: #ecfdf5; color: #15803d; padding: 2px 8px; border-radius: 6px;">ટપક સિંચાઈ</span>
+              <span style="font-weight: 800; color: #16a34a; font-size: 13px;">૫૫% - ૭૦% સબસિડી</span>
+            </div>
+            <h3 data-i18n="sch5_title">પર ડ્રોપ મોર ક્રોપ (PDMC)</h3>
+            <p data-i18n="sch5_desc">ડ્રિપ અને સ્પ્રિંકલર માઇક્રો-ઇરિગેશન માટે સરકારી સબસિડી. ૪૦% પાણીની બચત અને ઉત્પાદનમાં ૩૦% વધારો.</p>
+          </div>
+
+          <div class="pillar-card" style="border-color: #bbf7d0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-size: 11px; font-weight: 800; background: #ecfdf5; color: #15803d; padding: 2px 8px; border-radius: 6px;">સસ્તું ધિરાણ</span>
+              <span style="font-weight: 800; color: #16a34a; font-size: 13px;">૪% વ્યાજે લોન</span>
+            </div>
+            <h3 data-i18n="sch6_title">કિસાન ક્રેડિટ કાર્ડ (KCC)</h3>
+            <p data-i18n="sch6_desc">₹૩,૦૦,૦૦૦ સુધી ૪% રાહત દરે પાક લોન. કિસાનસેતુ ખાતાવહીને આધારે બેંક દ્વારા પેપરલેસ ધિરાણ મંજૂરી.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 5: Deep Tech & Offline-First Architecture -->
+    <section class="section-pad" id="tech" style="background: #ffffff;">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag" data-i18n="tech_tag">ઓફલાઇન-ફર્સ્ટ ટેકનોલોજી</span>
+          <h2 data-i18n="tech_title">ખેતરમાં <em>ઇન્ટરનેટ વિના અવિરત કામગીરી</em></h2>
+          <p class="section-subtitle" data-i18n="tech_sub">
+            ગ્રામીણ વિસ્તારોની નેટવર્ક સમસ્યાનો કાયમી ટેકનોલોજીકલ ઉકેલ:
+          </p>
+        </div>
+
+        <div class="pillars-grid">
+          <div class="pillar-card">
+            <div class="pillar-icon">💾</div>
+            <h3 data-i18n="tech1_title">લોકલ IndexedDB / Room સ્ટોરેજ</h3>
+            <p data-i18n="tech1_desc">
+              ખાતાવહીનો તમામ હિસાબ ફોનમાં ઝીરો મિલિસેકન્ડમાં ખુલે છે, ફોન ફ્લાઇટ મોડ પર હોય તો પણ બધું કામ કરે છે.
+            </p>
+          </div>
+
+          <div class="pillar-card">
+            <div class="pillar-icon">🔄</div>
+            <h3 data-i18n="tech2_title">ઓટોમેટિક સિંક કતાર</h3>
+            <p data-i18n="tech2_desc">
+              નેટવર્ક આવતાં જ તમામ એન્ટ્રીઝ કોઈ પણ ભૂલ કે ડુપ્લિકેશન વગર ક્લાઉડ સર્વર પર સિંક થઈ જાય છે.
+            </p>
+          </div>
+
+          <div class="pillar-card">
+            <div class="pillar-icon">🧠</div>
+            <h3 data-i18n="tech3_title">મલ્ટિમોડલ જેમિની AI</h3>
+            <p data-i18n="tech3_desc">
+              પાંદડાના ફોટા પરથી રોગની ઓળખ અને ગુજરાતીમાં સાંભળી શકાય તેવી સ્પ્રે સલાહ.
+            </p>
+          </div>
+
+          <div class="pillar-card">
+            <div class="pillar-icon">🔒</div>
+            <h3 data-i18n="tech4_title">DPDP કાયદા મુજબ ડેટા સુરક્ષા</h3>
+            <p data-i18n="tech4_desc">
+              ખેડૂતોની ઓળખ, જમીન વિગતો અને નાણાકીય વ્યવહારોની સંપૂર્ણ સુરક્ષા.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 7: Sustainable Business Model & Monetization -->
+    <section class="section-pad" style="background: #f8fafc; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag" data-i18n="biz_tag">આવક અને બિઝનેસ મોડેલ</span>
+          <h2 data-i18n="biz_title">ટકાઉ <em>આર્થિક મોડેલ</em></h2>
+          <p class="section-subtitle" data-i18n="biz_sub">
+            ખેડૂતોની સમૃદ્ધિ સાથે જોડાયેલ આત્મનિર્ભર બિઝનેસ રચના:
+          </p>
+        </div>
+
+        <div class="pillars-grid">
+          <div class="pillar-card">
+            <div class="pillar-icon" style="background: #ecfdf5; color: #16a34a;">🆓</div>
+            <h3 data-i18n="biz1_title">ખેડૂતો માટે ૧૦૦% મફત</h3>
+            <p data-i18n="biz1_desc">
+              ખાતાવહી, પાક ડૉક્ટર અને મંડી ભાવ સેવા ખેડૂતો માટે હંમેશા સંપૂર્ણ નિઃશુલ્ક રહેશે.
+            </p>
+          </div>
+
+          <div class="pillar-card">
+            <div class="pillar-icon" style="background: #fef9c3; color: #ca8a04;">📈</div>
+            <h3 data-i18n="biz2_title">જથ્થાબંધ ખરીદી પર નજીવી ફી</h3>
+            <p data-i18n="biz2_desc">
+              મોટી કોર્પોરેટ કંપનીઓ અને મિલ માલિકો પાસેથી ૦.૫% થી ૧% નો સામાન્ય ટ્રાન્ઝેક્શન ચાર્જ.
+            </p>
+          </div>
+
+          <div class="pillar-card">
+            <div class="pillar-icon" style="background: #e0f2fe; color: #0284c7;">🚚</div>
+            <h3 data-i18n="biz3_title">ટ્રાન્સપોર્ટર ફ્લીટ સબ્સ્ક્રિપ્શન</h3>
+            <p data-i18n="biz3_desc">
+              ટ્રેક્ટર-ટ્રોલી માલિકોને ખેતરોમાંથી સીધા ફેરા અને ખાલી વાહન પરત લાવવાનું ડીઝલ બચાવવાની સુવિધા.
+            </p>
+          </div>
+
+          <div class="pillar-card">
+            <div class="pillar-icon" style="background: #f3e8ff; color: #9333ea;">🔌</div>
+            <h3 data-i18n="biz4_title">એન્ટરપ્રાઇઝ એગ્રી ડેટા API</h3>
+            <p data-i18n="biz4_desc">
+              કૃષિ ઉદ્યોગ અને બિયારણ કંપનીઓ માટે ક્વોલિટી ડેટા અને ડિરેક્ટ સોર્સિંગ ઇન્ટિગ્રેશન.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Social Impact Metrics -->
+    <section class="section-pad" style="background: #ffffff;">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag" data-i18n="impact_tag">સાબિત થયેલ પરિણામો</span>
+          <h2 data-i18n="impact_title">ખેડૂતો અને ગ્રામીણ <em>ક્ષેત્રે મોટો બદલાવ</em></h2>
+          <p class="section-subtitle" data-i18n="impact_sub">
+            આંકડાકીય રીતે સાબિત થયેલ ફાયદા:
+          </p>
+        </div>
+
+        <div class="pillars-grid">
+          <div class="pillar-card" style="text-align: center; border-color: #bbf7d0;">
+            <div class="stat-num" style="color: #16a34a; font-size: 38px; margin-bottom: 4px;" data-i18n="imp1_val">+25%</div>
+            <h3 style="font-size: 15px;" data-i18n="imp1_lbl">ખેડૂતની ચોખ્ખી આવકમાં વધારો</h3>
+            <p data-i18n="imp1_desc">પારદર્શક બજાર ભાવ અને સીધા વેચાણથી દલાલોની કમિશન ચોરી બંધ.</p>
+          </div>
+
+          <div class="pillar-card" style="text-align: center; border-color: #fecdd3;">
+            <div class="stat-num" style="color: #e11d48; font-size: 38px; margin-bottom: 4px;" data-i18n="imp2_val">-30%</div>
+            <h3 style="font-size: 15px;" data-i18n="imp2_lbl">પાક નુકસાનીમાં ઘટાડો</h3>
+            <p data-i18n="imp2_desc">પ્રારંભિક ૨૪ કલાકમાં AI દ્વારા પીળો ગેરુ, ઈયળ અને સુકારાનું તાત્કાલિક નિદાન.</p>
+          </div>
+
+          <div class="pillar-card" style="text-align: center; border-color: #bbf7d0;">
+            <div class="stat-num" style="color: #16a34a; font-size: 38px; margin-bottom: 4px;" data-i18n="imp3_val">-20%</div>
+            <h3 style="font-size: 15px;" data-i18n="imp3_lbl">ખાતર અને દવાની બચત</h3>
+            <p data-i18n="imp3_desc">જમીન ચકાસણી મુજબ જ ખાતર આપવાથી યુરિયાના બિનજરૂરી ખર્ચમાં મોટો ઘટાડો.</p>
+          </div>
+
+          <div class="pillar-card" style="text-align: center; border-color: #bae6fd;">
+            <div class="stat-num" style="color: #0284c7; font-size: 38px; margin-bottom: 4px;" data-i18n="imp4_val">100%</div>
+            <h3 style="font-size: 15px;" data-i18n="imp4_lbl">પારદર્શક સરકારી સહાય</h3>
+            <p data-i18n="imp4_desc">PM-કિસાન, KCC ધિરાણ અને સોલાર પંપ સબસિડી સીધી ખેડૂતના ખાતામાં.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Strategic Government & Corporate Enterprise Portal -->
+    <section class="section-pad gov-corp-section" id="partnerships">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag" data-i18n="gov_corp_tag">વ્યૂહાત્મક ભાગીદારી</span>
+          <h2 data-i18n="gov_corp_title">સરકાર અને <em>ટોચની કંપનીઓ માટે</em></h2>
+          <p class="section-subtitle" data-i18n="gov_corp_sub">
+            કૃષિ મંત્રાલય, ICAR અને IT/એગ્રો કોર્પોરેટ્સ સાથે મળીને મોટો પ્રભાવ:
+          </p>
+        </div>
+
+        <div class="gov-corp-grid">
+          <!-- For Government -->
+          <div class="partner-box">
+            <span class="box-badge badge-gov" data-i18n="gov_badge">🏛️ કેન્દ્ર અને રાજ્ય સરકાર માટે</span>
+            <h3 data-i18n="gov_title">DBT, સબસિડી અને પાક રોગ મોનિટરિંગ ઝડપી બનાવો</h3>
+            <p data-i18n="gov_p">
+              ખેતીવાડી નિયામક કચેરી અને જિલ્લા કલેક્ટરોને ખેતરોનો સીધો લાઇવ ડેટા પૂરો પાડવો.
+            </p>
+            <ul class="benefit-list">
+              <li data-i18n="gov_b1">PM-કિસાન, KCC અને કુસુમ સોલાર પંપ યોજનાઓનું ૧૦૦% વેરિફિકેશન</li>
+              <li data-i18n="gov_b2">જિલ્લા સ્તરે પાક રોગ અને કમોસમી વરસાદની તાત્કાલિક પૂર્વ-ચેતવણી</li>
+              <li data-i18n="gov_b3">દરેક ખેડૂત સુધી ડિજિટલ સોઇલ હેલ્થ કાર્ડની સીધી પહોંચ</li>
+              <li data-i18n="gov_b4">બેંક ખાતામાં સીધા જમાથી વચેટિયાઓની દલાલી અને ગેરરીતિ બંધ</li>
+            </ul>
+            <a class="btn btn-secondary" href="#join" style="width: 100%; text-align: center;">
+              <span>Partner as Government Department ↗</span>
+            </a>
+          </div>
+
+          <!-- For Corporates & Investors -->
+          <div class="partner-box">
+            <span class="box-badge badge-corp" data-i18n="corp_badge">🏢 ટોચની IT અને કૃષિ કંપનીઓ માટે</span>
+            <h3 data-i18n="corp_title">સીધી પાક ખરીદી અને સ્કેલેબલ ટેક ઇન્ફ્રાસ્ટ્રક્ચર</h3>
+            <p data-i18n="corp_p">
+              બિયારણ, ખાતર વિતરણ, ખેડૂતો પાસેથી સીધી ખરીદી અને સીડ ઇન્વેસ્ટમેન્ટની સુવર્ણ તક.
+            </p>
+            <ul class="benefit-list">
+              <li data-i18n="corp_b1">ખેડૂતો પાસેથી દલાલી વગર સીધા ઘઉં, કપાસ, ડાંગર અને સોયાબીનની ખરીદી</li>
+              <li data-i18n="corp_b2">એન્ટરપ્રાઇઝ ERP અને લોજિસ્ટિક્સ સાથે ઓફલાઇન-ફર્સ્ટ API ઇન્ટિગ્રેશન</li>
+              <li data-i18n="corp_b3">સુધારેલા બિયારણ અને ખેત ઓજારોનું ગ્રામીણ વિતરણ નેટવર્ક</li>
+              <li data-i18n="corp_b4">સીડ સ્ટેજ ફંડિંગ અને વ્યૂહાત્મક જોઇન્ટ વેન્ચર</li>
+            </ul>
+            <a class="btn btn-primary" href="#join" style="width: 100%; text-align: center;">
+              <span>Partner as Enterprise / Investor ↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Real-world Use Cases & Ground Realities -->
+    <section class="section-pad" style="background: #ffffff;">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag" data-i18n="case_tag">સફળતાના કિસ્સાઓ</span>
+          <h2 data-i18n="case_title">જમીની વાસ્તવિકતા અને <em>પરિણામો</em></h2>
+          <p class="section-subtitle" data-i18n="case_sub">
+            કિસાનસેતુથી જોડાયેલા લોકોના અનુભવ:
+          </p>
+        </div>
+
+        <div class="divide-grid">
+          <div class="divide-card" style="border-color: #bbf7d0;">
+            <div class="divide-icon" style="background: #ecfdf5; color: #16a34a;">👨‍🌾</div>
+            <h3 data-i18n="case1_title">પ્રગતિશીલ ઘઉં પકવતા ખેડૂત</h3>
+            <p data-i18n="case1_desc">
+              ૮.૫ એકરમાં પીળા ગેરુ રોગનું ૬ કલાકમાં નિદાન કર્યું. ₹૧૪,૦૦૦ નું નુકસાન અટકાવ્યું અને ૮૫ ક્વિન્ટલ ઘઉં ₹૨,૮૨૦ ના ઉત્તમ ભાવે સીધા મિલ માલિકને વેચ્યા.
+            </p>
+          </div>
+
+          <div class="divide-card" style="border-color: #bbf7d0;">
+            <div class="divide-icon" style="background: #e0f2fe; color: #0284c7;">🔬</div>
+            <h3 data-i18n="case2_title">KVK માન્ય જમીન ચકાસણી લેબ</h3>
+            <p data-i18n="case2_desc">
+              કાગળિયું કામ બંધ કરી ૪૨૮ ડિજિટલ સોઇલ હેલ્થ કાર્ડ સીધા ખેડૂતોના ફોન પર મોકલ્યા. રિપોર્ટ સમય ૧૪ દિવસથી ઘટીને ૨.૪ દિવસ થયો.
+            </p>
+          </div>
+
+          <div class="divide-card" style="border-color: #bbf7d0;">
+            <div class="divide-icon" style="background: #fef9c3; color: #ca8a04;">🚚</div>
+            <h3 data-i18n="case3_title">ટ્રેક્ટર-ટ્રોલી વાહન માલિક</h3>
+            <p data-i18n="case3_desc">
+              ખેતરેથી યાર્ડ ટ્રાન્સપોર્ટ બુકિંગ સાધન વાપરી મહિનાના ફેરા ૧૨ થી વધારી ૨૯ કર્યા. ખાલી ગાડી લાવવાનું ડીઝલ બચ્યું અને અઠવાડિયે ₹૩૪,૮૦૦ ભાડું મળ્યું.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive ROI Calculator -->
+    <section class="section-pad" id="calculator" style="background: #f0fdf4;">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag" data-i18n="calc_tag">આર્થિક બચત કેલ્ક્યુલેટર</span>
+          <h2 data-i18n="calc_title">તમારા ખેતરનો <em>વાર્ષિક નફો ગણો</em></h2>
+          <p class="section-subtitle" data-i18n="calc_sub">
+            કિસાનસેતુ વાપરવાથી વાર્ષિક આર્થિક લાભનો અંદાજ મેળવો:
+          </p>
+        </div>
+
+        <div style="max-width: 680px; margin: 0 auto; background: #ffffff; border: 1px solid #bbf7d0; border-radius: 28px; padding: 36px; box-shadow: 0 15px 35px rgba(34, 197, 94, 0.08);">
+          <div style="margin-bottom: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <label style="font-size: 13px; font-weight: 800; color: #0f172a;" data-i18n="calc_land_lbl">ખેતરનું કદ (એકરમાં):</label>
+              <span style="font-size: 18px; font-weight: 800; color: #16a34a;"><span id="acresDisplay">5</span> Acres</span>
+            </div>
+            <input type="range" id="calcAcres" min="1" max="50" value="5" style="width: 100%; accent-color: #16a34a;" />
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 18px; padding: 18px;">
+              <span style="font-size: 11px; font-weight: 700; color: #64748b; display: block;" data-i18n="calc_sav_title">ખાતર અને દવામાં અંદાજિત વાર્ષિક બચત:</span>
+              <span id="calcSavings" style="font-size: 22px; font-weight: 800; color: #15803d; display: block; margin-top: 6px;">₹7,250</span>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 18px; padding: 18px;">
+              <span style="font-size: 11px; font-weight: 700; color: #64748b; display: block;" data-i18n="calc_profit_title">યાર્ડમાં સીધા વેચાણથી વધારાનો નફો:</span>
+              <span id="calcUplift" style="font-size: 22px; font-weight: 800; color: #15803d; display: block; margin-top: 6px;">₹19,000</span>
+            </div>
+          </div>
+
+          <div style="background: linear-gradient(135deg, #16a34a, #22c55e); color: #fff; border-radius: 20px; padding: 22px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <span style="font-size: 12px; font-weight: 700; opacity: 0.9;" data-i18n="calc_total_title">કુલ અંદાજિત વાર્ષિક આર્થિક ફાયદો:</span>
+              <div style="font-size: 10px; opacity: 0.8;">Based on field agronomical benchmarks</div>
+            </div>
+            <span id="calcTotal" style="font-size: 32px; font-weight: 900; font-family: var(--font-display);">₹26,250</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3-Year Scalability & Unit Economics Model -->
+    <section class="section-pad" id="financials" style="background: #ffffff; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag" data-i18n="fin_tag">૩ વર્ષનું આર્થિક આયોજન</span>
+          <h2 data-i18n="fin_title">સીડ સ્ટેજથી <em>રાષ્ટ્રીય સ્કેલિંગ પ્રોજેક્શન</em></h2>
+          <p class="section-subtitle" data-i18n="fin_sub">
+            ખેડૂત સંખ્યા, ગ્રોસ વ્યવહારો (GMV) અને વાર્ષિક આવક (ARR):
+          </p>
+        </div>
+
+        <div style="overflow-x: auto; background: #ffffff; border: 1px solid #bbf7d0; border-radius: 20px; padding: 10px;">
+          <table class="fin-table">
+            <thead>
+              <tr>
+                <th data-i18n="th_phase">તબક્કો (Phase)</th>
+                <th data-i18n="th_farmers">સક્રિય ખેડૂતો</th>
+                <th data-i18n="th_districts">જિલ્લાઓ</th>
+                <th data-i18n="th_fpos">ભાગીદાર FPO</th>
+                <th data-i18n="th_gmv">કુલ વ્યવહાર (GMV)</th>
+                <th data-i18n="th_arr" style="color: #15803d; font-weight: 900;">વાર્ષિક આવક (ARR)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight: 800;" data-i18n="row1_phase">વર્ષ ૧ (સીડ સ્ટેજ - ગુજરાત/મહારાષ્ટ્ર)</td>
+                <td>50,000</td>
+                <td>12</td>
+                <td>150</td>
+                <td>₹45.0 Cr</td>
+                <td style="font-weight: 800; color: #16a34a;">₹2.40 Cr</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 800;" data-i18n="row2_phase">વર્ષ ૨ (વૃદ્ધિ સ્ટેજ - પશ્ચિમ/મધ્ય ભારત)</td>
+                <td>350,000</td>
+                <td>60</td>
+                <td>800</td>
+                <td>₹320.0 Cr</td>
+                <td style="font-weight: 800; color: #16a34a;">₹16.80 Cr</td>
+              </tr>
+              <tr style="background: #f0fdf4;">
+                <td style="font-weight: 900; color: #14532d;" data-i18n="row3_phase">વર્ષ ૩ (રાષ્ટ્રીય પ્લેટફોર્મ સ્કેલ)</td>
+                <td style="font-weight: 800;">1,800,000</td>
+                <td style="font-weight: 800;">220+</td>
+                <td style="font-weight: 800;">4,000</td>
+                <td style="font-weight: 800;">₹1,850.0 Cr</td>
+                <td style="font-weight: 900; color: #15803d; font-size: 15px;">₹72.50 Cr</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3-Phase Execution Roadmap (Slide 6) -->
+    <section class="section-pad" id="roadmap" style="background: #fafaf9;">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag" data-i18n="road_tag">અમલીકરણ યોજના</span>
+          <h2 data-i18n="road_title">૩ તબક્કાનો <em>રોડમેપ (Roadmap)</em></h2>
+          <p class="section-subtitle" data-i18n="road_sub">
+            પ્રારંભિક MVP થી સંપૂર્ણ કૃષિ અર્થવ્યવસ્થા સુધીનું આયોજન:
+          </p>
+        </div>
+
+        <div class="roadmap-grid">
+          <div class="roadmap-card">
+            <span class="roadmap-phase" data-i18n="ph1_tag">મહિના ૧ - ૩</span>
+            <h3 data-i18n="ph1_title">ઉપયોગી MVP</h3>
+            <p data-i18n="ph1_desc">
+              ઓફલાઇન ખાતાવહી, AI પાક રોગ ઓળખ, હવામાન આગાહી અને ત્રિભાષી વૉઇસ AI.
+            </p>
+          </div>
+
+          <div class="roadmap-card">
+            <span class="roadmap-phase" data-i18n="ph2_tag">મહિના ૪ - ૬</span>
+            <h3 data-i18n="ph2_title">સ્થાનિક નેટવર્ક</h3>
+            <p data-i18n="ph2_desc">
+              જમીન લેબોરેટરી જોડાણ, ટ્રેક્ટર-ટ્રોલી પરિવહન ડિરેક્ટરી અને ખેડૂત ફીડ.
+            </p>
+          </div>
+
+          <div class="roadmap-card">
+            <span class="roadmap-phase" data-i18n="ph3_tag">મહિના ૭ - ૯</span>
+            <h3 data-i18n="ph3_title">કૃષિ ઇકોનોમી</h3>
+            <p data-i18n="ph3_desc">
+              સીધું ખરીદ-વેચાણ બજાર, લોજિસ્ટિક્સ ડિસ્પેચ અને સુરક્ષિત UPI પેમેન્ટ્સ.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Partner Enquiry & Call To Action -->
+    <section class="section-pad" id="join" style="background: #f8fafc;">
+      <div class="container">
+        <div class="cta-banner">
+          <div>
+            <h2 data-i18n="cta_title">ભારતીય કૃષિમાં પરિવર્તન લાવવા તૈયાર છો?</h2>
+            <p data-i18n="cta_sub">
+              સરકારી સહભાગી, રોકાણકાર કે કોર્પોરેટ પાર્ટનર તરીકે જોડાઓ.
+            </p>
+            <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+              <a class="btn btn-secondary" href="http://localhost:5173/" target="_blank" data-i18n="btn_open_app">
+                લાઇવ એપ શરૂ કરો ↗
+              </a>
+              <a class="btn" href="#join" style="background: rgba(255, 255, 255, 0.2); color: #fff; border: 1px solid rgba(255, 255, 255, 0.4);">
+                <span>Contact Founding Team</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Quick Partner Form -->
+          <div class="contact-card">
+            <h3>Partnership Inquiry</h3>
+            <form onsubmit="event.preventDefault(); alert('Thank you! Your partnership inquiry has been registered.');">
+              <div class="form-group">
+                <label>Organization / Ministry / Company</label>
+                <input type="text" required placeholder="e.g. State Dept of Agri / Agro Seeds Corp" />
+              </div>
+              <div class="form-group">
+                <label>Your Role / Designation</label>
+                <select>
+                  <option>Government Representative (સત્તાવાર પ્રતિનિધિ)</option>
+                  <option>Corporate Agritech / Buyer (કંપની ખરીદદાર)</option>
+                  <option>Seed Stage Investor / Venture Capital</option>
+                  <option>Agri University / Research Lab</option>
+                  <option>NGO / Farmer Producer Organisation (FPO)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Official Email or Phone</label>
+                <input type="text" required placeholder="official@gov.in or contact@company.com" />
+              </div>
+              <div class="form-group">
+                <label>Partnership Interest</label>
+                <textarea rows="3" placeholder="Tell us how you would like to collaborate with KisanSetu..."></textarea>
+              </div>
+              <button class="btn btn-primary" type="submit" style="width: 100%;">
+                Submit Partnership Inquiry ↗
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
+  <!-- Footer -->
   <footer class="site-footer">
-    <div class="container footer-main">
-      <a class="brand footer-brand" href="#home"><span class="brand-mark"><svg viewBox="0 0 40 40"><path d="M20 33V18M20 24C10 24 7 17 7 9c9 0 15 4 13 15ZM21 19C21 10 27 5 35 5c0 9-4 15-14 14Z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 34h23" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span><span class="brand-name">krishi<span>mitara</span><small>GROWING TOGETHER</small></span></a>
-      <p>Connecting India's agricultural ecosystem, one useful step at a time.</p>
-      <div class="footer-links"><a href="#ecosystem">Ecosystem</a><a href="#partners">Partners</a><a href="#join">Contact</a><a href="#about">About</a></div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="brand">
+          <span class="brand-name">krishi<span>mitara</span><small>GROWING TOGETHER</small></span>
+        </div>
+        <div>
+          <span>KisanSetu Platform · Seed Stage Agri-Tech Initiative · India</span>
+        </div>
+      </div>
+      <div class="footer-copy">
+        © 2026 Krishimitara Platform. All Rights Reserved. Offline-first rural architecture for India.
+      </div>
     </div>
-    <div class="container footer-bottom"><span>© <span id="year"></span> Krishimitara. Concept website.</span><span>Built for a more connected agricultural future.</span></div>
   </footer>
+
+  <!-- Executive Proposal Dossier Modal -->
+  <div class="dossier-modal-overlay" id="dossierModal">
+    <div class="dossier-modal">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #e2e8f0; padding-bottom: 18px; margin-bottom: 20px;">
+        <div>
+          <span style="font-size: 11px; font-weight: 800; background: #ecfdf5; color: #15803d; padding: 4px 10px; border-radius: 999px; text-transform: uppercase;">National Digital Public Infrastructure (DPI)</span>
+          <h2 style="font-size: 24px; font-weight: 800; color: #0f172a; margin: 8px 0 4px;">કિસાનસેતુ · સંસ્થાકીય પ્રપોઝલ ડોઝિયર (Whitepaper)</h2>
+          <p style="font-size: 12px; color: #64748b; margin: 0;">Prepared for State Agriculture Departments, CSR Foundations & Enterprise Agribusiness</p>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button onclick="window.print()" class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px; cursor: pointer;">🖨️ પ્રિન્ટ / PDF</button>
+          <button id="closeDossierBtn" class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px; cursor: pointer;">✕ બંધ કરો</button>
+        </div>
+      </div>
+
+      <div style="font-size: 13px; line-height: 1.8; color: #334155;">
+        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 18px; margin-bottom: 18px;">
+          <h4 style="margin: 0 0 6px; font-weight: 800; color: #166534; font-size: 14px;">૧. રાષ્ટ્રીય વિઝન (Executive Summary)</h4>
+          <p style="margin: 0;">
+            ભારતના ૧૪ કરોડ ખેડૂત પરિવારો માટે ઓલ-ઇન-વન ડિજિટલ પ્લેટફોર્મ જે ૧૦૦% ઓફલાઇન-ફર્સ્ટ (નેટ વિના ચાલતું) છે. ખેડૂતોને વૉઇસ AI, પાક રોગ નિદાન, ડિજિટલ ખાતાવહી અને મંડી ભાવ આપીને ખેડૂતની વાર્ષિક ચોખ્ખી આવકમાં ૨૫% સુધીનો વધારો કરવાનું લક્ષ્ય ધરાવે છે.
+          </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px;">
+          <div style="border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px;">
+            <h4 style="margin: 0 0 8px; font-weight: 800; color: #0369a1; font-size: 13px;">🏛️ સરકારી વિભાગો માટે સહયોગ લાભ</h4>
+            <ul style="padding-left: 18px; margin: 0; font-size: 12px; color: #475569;">
+              <li>PM-કિસાન e-KYC અને સ્ટેટસ ટ્રેકિંગ ૨૧ દિવસથી ઘટી ૨ દિવસમાં.</li>
+              <li>જિલ્લા સ્તરે રોગ-જીવાત પ્રકોપનું જીઓ-ટેગ્ડ લાઇવ મોનિટરિંગ.</li>
+              <li>૧૦૦% વેરિફાઇડ DBT થી સરકારી યોજનાઓમાં ગેરરીતિ અટકાવવી.</li>
+            </ul>
+          </div>
+          <div style="border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px;">
+            <h4 style="margin: 0 0 8px; font-weight: 800; color: #15803d; font-size: 13px;">🏢 ટોચની IT / કોર્પોરેટ કંપનીઓ માટે</h4>
+            <ul style="padding-left: 18px; margin: 0; font-size: 12px; color: #475569;">
+              <li>FMCG માટે ખેતરેથી સીધી ખરીદી, દલાલીમાં ૮% થી ૧૨% બચત.</li>
+              <li>ગામડાઓમાં CSR અને ESG હેઠળ સાબિત થયેલ આર્થિક પ્રભાવ.</li>
+              <li>ઓફલાઇન-ફર્સ્ટ REST API થી એન્ટરપ્રાઇઝ ERP સાથે સરળ જોડાણ.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="background: #fafaf9; border: 1px solid #e7e5e4; border-radius: 16px; padding: 16px; margin-bottom: 18px;">
+          <h4 style="margin: 0 0 8px; font-weight: 800; color: #1c1917; font-size: 13px;">⚙️ ડીપ ટેકનોલોજી મોટ (Technical Moat)</h4>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; font-size: 11px;">
+            <div style="background: #fff; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0;">
+              <strong style="display: block; color: #15803d;">Edge TinyML</strong>
+              ૧૫૦ms માં ઓન-ડિવાઇસ પાક રોગ સ્કેન.
+            </div>
+            <div style="background: #fff; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0;">
+              <strong style="display: block; color: #15803d;">CRDT Sync</strong>
+              ઝીરો ડેટા લોસ બેકગ્રાઉન્ડ સિંક.
+            </div>
+            <div style="background: #fff; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0;">
+              <strong style="display: block; color: #15803d;">Bhashini Voice</strong>
+              ગુજરાતી, હિન્દી વૉઇસ સંવાદ.
+            </div>
+            <div style="background: #fff; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0;">
+              <strong style="display: block; color: #15803d;">DPDP Act</strong>
+              ખેડૂત આધાર અને બેંક ડેટાનું સુરક્ષિત એન્ક્રિપ્શન.
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #e2e8f0; padding-top: 16px; font-size: 11px; color: #64748b;">
+          <div>સંપર્ક: <strong style="color: #0f172a;">founding-team@kisansetu.in</strong> · ગાંધીનગર, ગુજરાત</div>
+          <div>KisanSetu Platform · Seed Round Dossier 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
