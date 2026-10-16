@@ -1,6 +1,7 @@
 import { KhataEntry, DiagnosisResult, SoilTestRecord, Transporter, MarketRate, MarketItem, Scheme } from '../types';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+const isLocal = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+const API_BASE = import.meta.env.VITE_API_URL || (isLocal ? 'http://localhost:4000/api' : '/api');
 
 const OFFLINE_QUEUE_KEY = 'krishimitara_khata_offline_queue';
 const LOCAL_KHATA_KEY = 'krishimitara_local_khata_cache';

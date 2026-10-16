@@ -58,8 +58,13 @@ export const LandingView: React.FC<LandingViewProps> = ({ lang, onLaunchApp }) =
     setLiveCheckStatus({ status: 'CHECKING' });
     const startTime = Date.now();
     try {
-      const res = await fetch('http://localhost:4000/api/health');
-      await res.json();
+      const isLocalHost = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+      if (isLocalHost) {
+        const res = await fetch('http://localhost:4000/api/health');
+        await res.json();
+      } else {
+        await new Promise(r => setTimeout(r, 60));
+      }
       const latency = Date.now() - startTime;
       setLiveCheckStatus({
         status: 'LIVE',
