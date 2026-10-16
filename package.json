@@ -2,8 +2,15 @@
   "name": "kisansetu-monorepo",
   "version": "1.0.0",
   "private": true,
+  "workspaces": [
+    "frontend"
+  ],
   "scripts": {
-    "build": "echo 'Deploying pre-compiled KisanSetu production bundle from frontend/dist'",
+    "build": "node -e \"const fs=require('fs'); if(fs.existsSync('frontend/dist/index.html')){console.log('Using pre-built dist bundle');process.exit(0);}else{require('child_process').execSync('npm run build --prefix frontend',{stdio:'inherit'});}\"",
     "dev": "npm run dev --prefix frontend"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
   }
 }
