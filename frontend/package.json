@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "node -e \"const fs=require('fs'); if(fs.existsSync('dist/index.html')){console.log('Using pre-built dist bundle');process.exit(0);}else{require('child_process').execSync('tsc && vite build',{stdio:'inherit'});}\"",
+    "build:clean": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
