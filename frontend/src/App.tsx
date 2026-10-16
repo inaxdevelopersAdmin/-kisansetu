@@ -81,14 +81,15 @@ export const App: React.FC = () => {
 
   const handleRoleChange = (newRole: Role) => {
     setRole(newRole);
+    setCurrentTab('dashboard');
     const roleLabels: Record<Role, { en: string; hi: string; gu: string }> = {
-      FARMER: { en: 'Farmer', hi: 'किसान (Farmer)', gu: 'ખેડૂત (Farmer)' },
-      KHATER_PRODUCER: { en: 'Khater Producer', hi: 'खाद उत्पादक (Khater)', gu: 'ખાતર ઉત્પાદક (Khater)' },
-      AGRI_LAB: { en: 'Agri Lab Specialist', hi: 'मृदा प्रयोगशाला (Agri Lab)', gu: 'જમીન પ્રયોગશાળા (Agri Lab)' },
-      TRANSPORTER: { en: 'Transporter Hub', hi: 'ट्रांसपोर्टर (Logistics)', gu: 'ટ્રાન્સપોર્ટર (Logistics)' },
-      GOVERNMENT: { en: 'Govt Extension Officer', hi: 'सरकारी कृषि अधिकारी (Govt)', gu: 'સરકારી કૃષિ અધિકારી (Govt)' },
-      AGRO_COMPANY: { en: 'Agro Procurement Buyer', hi: 'कृषि कंपनी (Agro Co)', gu: 'એગ્રો કંપની (Agro Co)' },
-      SPONSOR_NGO: { en: 'Sponsor / NGO Director', hi: 'सहयोगी संस्था (NGO)', gu: 'સેવા સંસ્થા / ટ્રસ્ટ (NGO)' },
+      FARMER: { en: 'Farmer Portal', hi: 'किसान पोर्टल (Farmer)', gu: 'ખેડૂત પોર્ટલ (Farmer)' },
+      KHATER_PRODUCER: { en: 'Khater Producer Portal', hi: 'खाद उत्पादक पोर्टल (Khater)', gu: 'ખાતર ઉત્પાદક પોર્ટલ (Khater)' },
+      AGRI_LAB: { en: 'Agri Lab Portal', hi: 'मृदा प्रयोगशाला पोर्टल (Lab)', gu: 'જમીન પ્રયોગશાળા પોર્ટલ (Lab)' },
+      TRANSPORTER: { en: 'Transporter Portal', hi: 'ट्रांसपोर्टर पोर्टल (Logistics)', gu: 'ટ્રાન્સપોર્ટર પોર્ટલ (Logistics)' },
+      GOVERNMENT: { en: 'Govt Officer Portal', hi: 'सरकारी कृषि अधिकारी पोर्टल', gu: 'સરકારી કૃષિ અધિકારી પોર્ટલ' },
+      AGRO_COMPANY: { en: 'Agro Procurement Portal', hi: 'कृषि कंपनी पोर्टल (Agro)', gu: 'એગ્રો કંપની ખરીદી પોર્ટલ' },
+      SPONSOR_NGO: { en: 'Foundation / NGO Portal', hi: 'सहयोगी संस्था पोर्टल (NGO)', gu: 'સેવા સંસ્થા / ફાઉન્ડેશન પોર્ટલ' },
     };
     setRoleToast(roleLabels[newRole][lang]);
     setTimeout(() => setRoleToast(null), 3000);
@@ -281,6 +282,7 @@ export const App: React.FC = () => {
                 onNavigate={setCurrentTab}
                 summary={khataSummary}
                 role={role}
+                setRole={handleRoleChange}
               />
             )}
             {currentTab === 'khata' && (

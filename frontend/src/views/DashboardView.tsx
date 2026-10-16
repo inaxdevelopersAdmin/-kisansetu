@@ -21,6 +21,12 @@ import {
   Droplets,
   Sprout,
   Landmark,
+  Fuel,
+  Receipt,
+  FileText,
+  ChevronRight,
+  ArrowRight,
+  Sparkles,
 } from 'lucide-react';
 import { Language, translations } from '../i18n';
 import { Role } from '../types';
@@ -30,6 +36,7 @@ interface DashboardViewProps {
   onNavigate: (tab: string) => void;
   summary: { totalIncome: number; totalExpense: number; netBalance: number };
   role: Role;
+  setRole?: (role: Role) => void;
 }
 
 export const DashboardView: React.FC<DashboardViewProps> = ({
@@ -37,6 +44,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onNavigate,
   summary,
   role,
+  setRole,
 }) => {
   const t = translations[lang];
 
@@ -380,10 +388,67 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
   const currentProfile = roleProfiles[role] || roleProfiles.FARMER;
 
+  const bannerGradientClass =
+    role === 'KHATER_PRODUCER'
+      ? 'from-emerald-700 via-lime-700 to-amber-700 border-lime-400/40 shadow-lime-900/10'
+      : role === 'AGRI_LAB'
+      ? 'from-teal-700 via-cyan-700 to-blue-700 border-cyan-400/40 shadow-cyan-900/10'
+      : role === 'TRANSPORTER'
+      ? 'from-amber-700 via-orange-600 to-amber-600 border-amber-400/40 shadow-amber-900/10'
+      : role === 'GOVERNMENT'
+      ? 'from-emerald-800 via-teal-800 to-green-700 border-emerald-400/40 shadow-emerald-900/10'
+      : role === 'AGRO_COMPANY'
+      ? 'from-indigo-800 via-blue-800 to-emerald-700 border-indigo-400/40 shadow-indigo-900/10'
+      : role === 'SPONSOR_NGO'
+      ? 'from-rose-700 via-emerald-700 to-teal-700 border-rose-400/40 shadow-rose-900/10'
+      : 'from-emerald-600 via-green-600 to-emerald-500 border-emerald-400/30 shadow-emerald-700/10';
+
   return (
     <div className="space-y-6">
-      {/* Top Welcome & Role Identity Banner - Fresh Light Green Gradient */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-500 text-white p-6 md:p-8 shadow-lg shadow-emerald-700/10 border border-emerald-400/30">
+      {/* 7-PORTAL DIRECT SWITCHER BAR */}
+      <div className="bg-white p-3 rounded-3xl border border-emerald-200 shadow-sm space-y-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 px-1">
+          <div className="flex items-center space-x-2">
+            <Sparkles className="w-4 h-4 text-emerald-600" />
+            <span className="text-xs font-bold text-stone-800 uppercase tracking-wide">
+              {lang === 'gu' ? '૭ સ્વતંત્ર રોલ પોર્ટલ ડેસ્ક (પોર્ટલ બદલો):' : '7 Dedicated Stakeholder Portals (Switch Active Desk):'}
+            </span>
+          </div>
+          <span className="text-[11px] font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+            {lang === 'gu' ? 'ક્લિક કરીને કોઈપણ પોર્ટલનો લાઈવ અનુભવ કરો' : 'Click to instantly view each role dashboard'}
+          </span>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-1.5">
+          {[
+            { id: 'FARMER', label: lang === 'gu' ? '👨‍🌾 ખેડૂત પોર્ટલ' : '👨‍🌾 Farmer' },
+            { id: 'KHATER_PRODUCER', label: lang === 'gu' ? '🌱 ખાતર ઉત્પાદક' : '🌱 Khater Producer' },
+            { id: 'AGRI_LAB', label: lang === 'gu' ? '🔬 એગ્રી લેબ' : '🔬 Agri Lab' },
+            { id: 'TRANSPORTER', label: lang === 'gu' ? '🚚 ટ્રાન્સપોર્ટર' : '🚚 Transporter' },
+            { id: 'GOVERNMENT', label: lang === 'gu' ? '🏛️ સરકારી અધિકારી' : '🏛️ Govt Officer' },
+            { id: 'AGRO_COMPANY', label: lang === 'gu' ? '🏢 એગ્રો કંપની' : '🏢 Agro Company' },
+            { id: 'SPONSOR_NGO', label: lang === 'gu' ? '🤝 ફાઉન્ડેશન / NGO' : '🤝 Foundation' },
+          ].map((item) => {
+            const isCurrent = role === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => setRole && setRole(item.id as Role)}
+                className={`py-2 px-2 rounded-2xl text-[11px] font-bold transition text-center flex items-center justify-center space-x-1 border ${
+                  isCurrent
+                    ? 'bg-emerald-600 text-white border-emerald-600 shadow-md ring-2 ring-emerald-300'
+                    : 'bg-stone-50 text-stone-700 border-stone-200 hover:bg-stone-100 hover:border-emerald-300'
+                }`}
+              >
+                <span className="truncate">{item.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Top Welcome & Role Identity Banner with Distinct Gradient */}
+      <div className={`relative overflow-hidden rounded-3xl bg-gradient-to-r ${bannerGradientClass} text-white p-6 md:p-8 shadow-lg border`}>
         <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -538,6 +603,415 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             );
           })}
         </div>
+      </div>
+
+      {/* DEDICATED LIVE WORKSPACES & CONSOLES PER ROLE */}
+      <div className="pt-2">
+        {/* 1. FARMER PORTAL CONSOLE */}
+        {role === 'FARMER' && (
+          <div className="bg-white p-6 rounded-3xl border border-emerald-200 shadow-sm space-y-4">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+              <div className="flex items-center space-x-2">
+                <span className="p-2 rounded-xl bg-emerald-100 text-emerald-800">
+                  <Sprout className="w-5 h-5" />
+                </span>
+                <div>
+                  <h3 className="text-sm font-bold text-stone-900">ખેડૂત લાઈવ ફાર્મ બોર્ડ (Farmer Live Command)</h3>
+                  <p className="text-[11px] text-stone-500">સીહોર/ગુજરાત ક્લસ્ટર · ૮.૫ એકર વાવેતર ઘઉં અને સોયાબીન</p>
+                </div>
+              </div>
+              <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
+                સિઝન: ઝૈદ ૨૦૨૬ સક્રિય
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+              <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200 space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="font-bold text-emerald-900">સિંચાઈ પાણી સુવિધા</span>
+                  <span className="text-[10px] bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded-md font-bold">ઉપલબ્ધ</span>
+                </div>
+                <p className="text-[11px] text-stone-600">નજીકના બોરવેલમાંથી ₹૭૫/કલાકના દરે પાણી શેરિંગ ઉપલબ્ધ છે.</p>
+                <button
+                  onClick={() => onNavigate('water_khater')}
+                  className="w-full py-1.5 rounded-xl bg-emerald-600 text-white font-bold text-[11px] hover:bg-emerald-500 transition"
+                >
+                  પાણી શેરિંગ નેટવર્ક જુઓ →
+                </button>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-amber-50/60 border border-amber-200 space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="font-bold text-amber-900">સસ્તું દેશી ખાતર</span>
+                  <span className="text-[10px] bg-amber-200 text-amber-900 px-2 py-0.5 rounded-md font-bold">૫૦% બચત</span>
+                </div>
+                <p className="text-[11px] text-stone-600">સ્થાનિક અળસિયા ખાતર ₹૨૨૦/થેલી (બજાર ભાવ ₹૪૫૦ કરતાં અડધો ભાવ).</p>
+                <button
+                  onClick={() => onNavigate('water_khater')}
+                  className="w-full py-1.5 rounded-xl bg-amber-600 text-white font-bold text-[11px] hover:bg-amber-500 transition"
+                >
+                  ખાતર ઓર્ડર કરો →
+                </button>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-sky-50/60 border border-sky-200 space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="font-bold text-sky-900">જમીન સોઇલ હેલ્થ કાર્ડ</span>
+                  <span className="text-[10px] bg-sky-200 text-sky-900 px-2 py-0.5 rounded-md font-bold">લેબ પ્રમાણિત</span>
+                </div>
+                <p className="text-[11px] text-stone-600">NPK સંતુલિત, કાર્બન ૦.૬૨% (મધ્યમ). ડાઉનલોડ કરવા માટે તૈયાર.</p>
+                <button
+                  onClick={() => onNavigate('soil')}
+                  className="w-full py-1.5 rounded-xl bg-sky-600 text-white font-bold text-[11px] hover:bg-sky-500 transition"
+                >
+                  સોઇલ કાર્ડ ડાઉનલોડ કરો →
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 2. KHATER PRODUCER CONSOLE */}
+        {role === 'KHATER_PRODUCER' && (
+          <div className="bg-white p-6 rounded-3xl border border-lime-300 shadow-sm space-y-4">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+              <div className="flex items-center space-x-2">
+                <span className="p-2 rounded-xl bg-lime-100 text-lime-800">
+                  <Sprout className="w-5 h-5" />
+                </span>
+                <div>
+                  <h3 className="text-sm font-bold text-stone-900">ખાતર ઉત્પાદક સ્ટોક અને ખેડૂત ઓર્ડર ડેસ્ક (Khater Producer Desk)</h3>
+                  <p className="text-[11px] text-stone-500">કાંતિભાઈ પટેલ · સાંપા ક્લસ્ટર, ગાંધીનગર · PKVY ઓર્ગેનિક પ્રમાણિત</p>
+                </div>
+              </div>
+              <button
+                onClick={() => onNavigate('water_khater')}
+                className="px-3 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-500 transition"
+              >
+                + નવો ખાતર લોટ લિસ્ટ કરો
+              </button>
+            </div>
+
+            {/* Live Inventory */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200">
+                <span className="text-stone-500 block">વર્મીકમ્પોસ્ટ (અળસિયાં ખાતર):</span>
+                <span className="text-lg font-bold text-emerald-800">280 થેલી તૈયાર</span>
+                <span className="text-[10px] text-stone-500 block">૫૦ કિગ્રા બેગ · ભાવ ₹૨૨૦ (બજાર ₹૪૫૦)</span>
+              </div>
+              <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200">
+                <span className="text-stone-500 block">દેશી ગાય ગોહરી ખાતર:</span>
+                <span className="text-lg font-bold text-amber-800">450 થેલી તૈયાર</span>
+                <span className="text-[10px] text-stone-500 block">૫૦ કિગ્રા બેગ · ભાવ ₹૧૬૦</span>
+              </div>
+              <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200">
+                <span className="text-stone-500 block">દેશી જીવામૃત લિક્વિડ:</span>
+                <span className="text-lg font-bold text-blue-800">600 લિટર તૈયાર</span>
+                <span className="text-[10px] text-stone-500 block">૨૦ લિટર કેન · ભાવ ₹૧૮૦</span>
+              </div>
+            </div>
+
+            {/* Pending Farmer Orders */}
+            <div className="space-y-2 pt-2">
+              <h4 className="text-xs font-bold text-stone-800">ખેડૂતો તરફથી આવેલા તાજા ઓર્ડર્સ (Live Farmer Orders):</h4>
+              <div className="space-y-2">
+                {[
+                  { farmer: 'હરીશભાઈ પટેલ (વિજાપુર)', item: '૨૫ થેલી વર્મીકમ્પોસ્ટ', amount: '₹૫,૫૦૦', status: 'ઓર્ડર સ્વીકારેલ', phone: '+91 98251 44102' },
+                  { farmer: 'પોપટભાઈ રબારી (માણસા)', item: '૪૦ થેલી ગોહરી ખાતર', amount: '₹૬,૪૦૦', status: 'પેકિંગ ચાલુ', phone: '+91 94280 11982' },
+                ].map((ord, i) => (
+                  <div key={i} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 rounded-2xl bg-stone-50 border border-stone-200 text-xs gap-2">
+                    <div>
+                      <span className="font-bold text-stone-900">{ord.farmer}</span>
+                      <span className="text-stone-500 ml-2">({ord.item})</span>
+                      <span className="block text-[11px] text-emerald-700 font-bold">{ord.amount} · {ord.status}</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <a href={`tel:${ord.phone}`} className="px-3 py-1 bg-white border border-stone-300 rounded-xl font-semibold text-stone-700 hover:bg-stone-100">
+                        સંપર્ક કરો
+                      </a>
+                      <button
+                        onClick={() => alert(`${ord.farmer} નો ઓર્ડર ડિસ્પેચ માટે માર્ક થઈ ગયો છે. ટ્રાન્સપોર્ટરને સૂચના મોકલાઈ છે.`)}
+                        className="px-3 py-1 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-500"
+                      >
+                        ડિસ્પેચ કરો
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 3. AGRI LAB CONSOLE */}
+        {role === 'AGRI_LAB' && (
+          <div className="bg-white p-6 rounded-3xl border border-cyan-300 shadow-sm space-y-4">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+              <div className="flex items-center space-x-2">
+                <span className="p-2 rounded-xl bg-cyan-100 text-cyan-800">
+                  <FlaskConical className="w-5 h-5" />
+                </span>
+                <div>
+                  <h3 className="text-sm font-bold text-stone-900">એગ્રી લેબોરેટરી ટેસ્ટિંગ વર્કસ્ટેશન (Agri Testing Queue)</h3>
+                  <p className="text-[11px] text-stone-500">કેવીકે પ્રયોગશાળા · ISO 17025 માન્યતા પ્રાપ્ત · સોઇલ, પાણી અને ખાતર તપાસ</p>
+                </div>
+              </div>
+              <button
+                onClick={() => onNavigate('soil')}
+                className="px-3 py-1.5 rounded-xl bg-cyan-700 text-white text-xs font-bold hover:bg-cyan-600 transition"
+              >
+                તમામ લેબ રિપોર્ટ્સ જુઓ →
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200">
+                <span className="text-stone-500 block">જમીન સેમ્પલ (Soil NPK):</span>
+                <span className="text-lg font-bold text-emerald-800">12 પેન્ડિંગ</span>
+                <span className="text-[10px] text-stone-500 block">NPK, pH, ઓર્ગેનિક કાર્બન</span>
+              </div>
+              <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200">
+                <span className="text-stone-500 block">સિંચાઈ પાણી સેમ્પલ (TDS/SAR):</span>
+                <span className="text-lg font-bold text-sky-800">4 સેમ્પલ</span>
+                <span className="text-[10px] text-stone-500 block">ક્ષારતા અને પીવાલાયક ટેસ્ટ</span>
+              </div>
+              <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200">
+                <span className="text-stone-500 block">ખાતર શુદ્ધતા % તપાસ:</span>
+                <span className="text-lg font-bold text-amber-800">2 સેમ્પલ</span>
+                <span className="text-[10px] text-stone-500 block">ભેળસેળ અને ગુણવત્તા ટેસ્ટ</span>
+              </div>
+            </div>
+
+            <div className="p-3 rounded-2xl bg-cyan-50 border border-cyan-200 text-xs text-cyan-950 flex items-center justify-between">
+              <div>
+                <span className="font-bold block">૧-ક્લિક ડિજિટલ સર્ટિફિકેટ ઇશ્યૂ:</span>
+                <span className="text-[11px] text-cyan-800">ટેસ્ટ પૂર્ણ થતાં ખેડૂતના મોબાઇલમાં ગુજરાતીમાં સોઇલ હેલ્થ કાર્ડ આપોઆપ મોકલાઈ જાય છે.</span>
+              </div>
+              <button
+                onClick={() => onNavigate('soil')}
+                className="px-3 py-1.5 rounded-xl bg-cyan-700 text-white font-bold text-xs shrink-0"
+              >
+                સર્ટિફિકેટ જનરેટ કરો
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* 4. TRANSPORTER CONSOLE */}
+        {role === 'TRANSPORTER' && (
+          <div className="bg-white p-6 rounded-3xl border border-amber-300 shadow-sm space-y-4">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+              <div className="flex items-center space-x-2">
+                <span className="p-2 rounded-xl bg-amber-100 text-amber-800">
+                  <Truck className="w-5 h-5" />
+                </span>
+                <div>
+                  <h3 className="text-sm font-bold text-stone-900">ટ્રાન્સપોર્ટર ફ્લીટ & પેટ્રોલ પંપ ક્રેડિટ ડેસ્ક (Fleet & Fuel Desk)</h3>
+                  <p className="text-[11px] text-stone-500">બાબુભાઈ રબારી લોજિસ્ટિક્સ · ૪ વાહનો સક્રિય · Nayara / HPCL ક્રેડિટ કરાર</p>
+                </div>
+              </div>
+              <button
+                onClick={() => onNavigate('transport')}
+                className="px-3 py-1.5 rounded-xl bg-amber-600 text-white text-xs font-bold hover:bg-amber-500 transition"
+              >
+                પેટ્રોલ પંપ બિલ જુઓ →
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200">
+                <span className="text-stone-500 block">પેટ્રોલ પંપ ક્રેડિટ લિમિટ:</span>
+                <span className="text-lg font-bold text-stone-900">₹1,20,000</span>
+                <span className="text-[10px] text-emerald-700 font-bold block">રોકડ વગર ડીઝલ સુવિધા સક્રિય</span>
+              </div>
+              <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200">
+                <span className="text-stone-500 block">ચાલુ માસિક ડીઝલ બિલ:</span>
+                <span className="text-lg font-bold text-amber-800">₹75,600</span>
+                <span className="text-[10px] text-stone-500 block">840 લિટર · ચુકવણી ૩૦ ઑક્ટોબર</span>
+              </div>
+              <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200">
+                <span className="text-stone-500 block">ફ્લીટ ડિસ્કાઉન્ટ બચત:</span>
+                <span className="text-lg font-bold text-emerald-700">₹2,100 બચત</span>
+                <span className="text-[10px] text-stone-500 block">₹૨.૫૦ / લિટર ડિસ્કાઉન્ટ મળેલ</span>
+              </div>
+            </div>
+
+            <div className="p-3 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-950 flex items-center justify-between">
+              <div>
+                <span className="font-bold block">ખેત-થી-મંડી ૩ નવા પીકઅપ ઉપલબ્ધ:</span>
+                <span className="text-[11px] text-amber-800">આષ્ટા ગામથી ગોંડલ મંડી ૫ ટન ઘઉં પીકઅપ પેન્ડિંગ.</span>
+              </div>
+              <button
+                onClick={() => onNavigate('transport')}
+                className="px-3 py-1.5 rounded-xl bg-amber-700 text-white font-bold text-xs shrink-0"
+              >
+                ટ્રીપ સ્વીકારો (₹35/km)
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* 5. GOVERNMENT CONSOLE */}
+        {role === 'GOVERNMENT' && (
+          <div className="bg-white p-6 rounded-3xl border border-emerald-300 shadow-sm space-y-4">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+              <div className="flex items-center space-x-2">
+                <span className="p-2 rounded-xl bg-emerald-100 text-emerald-800">
+                  <Landmark className="w-5 h-5" />
+                </span>
+                <div>
+                  <h3 className="text-sm font-bold text-stone-900">જિલ્લા કૃષિ અધિકારી કમાન્ડ સેન્ટર (District Govt Command)</h3>
+                  <p className="text-[11px] text-stone-500">કૃષિ નિયામક કચેરી · i-Khedut પોર્ટલ & પીએમ-કિસાન DBT વેરિફિકેશન</p>
+                </div>
+              </div>
+              <button
+                onClick={() => onNavigate('schemes')}
+                className="px-3 py-1.5 rounded-xl bg-emerald-700 text-white text-xs font-bold hover:bg-emerald-600 transition"
+              >
+                જમીન મુજબ યોજનાઓ જુઓ →
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200">
+                <span className="text-stone-500 block">સીમાંત ખેડૂતો (&lt; ૨ એકર):</span>
+                <span className="text-lg font-bold text-emerald-800">8,420 ખેડૂત</span>
+                <span className="text-[10px] text-stone-500 block">૭૦% ટપક સિંચાઈ સબસિડી લક્ષ્યાંક</span>
+              </div>
+              <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200">
+                <span className="text-stone-500 block">નાના ખેડૂતો (૨ થી ૫ એકર):</span>
+                <span className="text-lg font-bold text-blue-800">4,150 ખેડૂત</span>
+                <span className="text-[10px] text-stone-500 block">સોલાર પંપ અને KCC ધિરાણ</span>
+              </div>
+              <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200">
+                <span className="text-stone-500 block">મોટા ખેડૂતો (&gt; ૫ એકર):</span>
+                <span className="text-lg font-bold text-stone-800">1,210 ખેડૂત</span>
+                <span className="text-[10px] text-stone-500 block">ટ્રેક્ટર અને ફાર્મ મિકેનાઇઝેશન</span>
+              </div>
+            </div>
+
+            <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-950 flex items-center justify-between">
+              <div>
+                <span className="font-bold block">જિલ્લા જીવાત અલર્ટ બ્રોડકાસ્ટ:</span>
+                <span className="text-[11px] text-emerald-800">સૌરાષ્ટ્ર ક્લસ્ટરના ૨૪,૦૦૦ ખેડૂતોને કપાસમાં ગુલાબી ઈયળ સાવચેતી એસએમએસ મોકલો.</span>
+              </div>
+              <button
+                onClick={() => alert('કૃષિ વિભાગ દ્વારા ૨૪,૦૦૦ ખેડૂતોને ગુજરાતીમાં ઈયળ સાવચેતી મેસેજ સફળતાપૂર્વક બ્રોડકાસ્ટ કરવામાં આવ્યો છે.')}
+                className="px-3 py-1.5 rounded-xl bg-emerald-700 text-white font-bold text-xs shrink-0"
+              >
+                બ્રોડકાસ્ટ કરો
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* 6. AGRO COMPANY CONSOLE */}
+        {role === 'AGRO_COMPANY' && (
+          <div className="bg-white p-6 rounded-3xl border border-indigo-200 shadow-sm space-y-4">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+              <div className="flex items-center space-x-2">
+                <span className="p-2 rounded-xl bg-indigo-100 text-indigo-800">
+                  <Building2 className="w-5 h-5" />
+                </span>
+                <div>
+                  <h3 className="text-sm font-bold text-stone-900">કોર્પોરેટ બલ્ક ખરીદી & ક્વોલિટી એસ્ક્રો ડેસ્ક (Corporate Sourcing Desk)</h3>
+                  <p className="text-[11px] text-stone-500">અદાણી વિલ્મર, આઈટીસી, બાલાજી પ્રોક્યોરમેન્ટ · કિસાનસેતુ સંપૂર્ણ રિસ્ક ગેરંટી</p>
+                </div>
+              </div>
+              <button
+                onClick={() => onNavigate('market')}
+                className="px-3 py-1.5 rounded-xl bg-indigo-700 text-white text-xs font-bold hover:bg-indigo-600 transition"
+              >
+                નવો ખરીદ ટેન્ડર મૂકો →
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200">
+                <span className="text-stone-500 block">સક્રિય ખરીદ ટેન્ડર્સ:</span>
+                <span className="text-lg font-bold text-indigo-800">3 મોટા ઓર્ડર્સ</span>
+                <span className="text-[10px] text-stone-500 block">મગફળી, બટાટા અને જીરું</span>
+              </div>
+              <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200">
+                <span className="text-stone-500 block">કિસાનસેતુ ક્વોલિટી પાસ લોટ:</span>
+                <span className="text-lg font-bold text-emerald-800">4,150 ક્વિન્ટલ</span>
+                <span className="text-[10px] text-stone-500 block">૧૦૦% લેબ સર્ટિફાઇડ લોટ</span>
+              </div>
+              <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200">
+                <span className="text-stone-500 block">એસ્ક્રો પેમેન્ટ સુરક્ષા:</span>
+                <span className="text-lg font-bold text-stone-900">₹45,00,000</span>
+                <span className="text-[10px] text-emerald-700 font-bold block">ખેડૂત પેમેન્ટ ૧૦૦% સુરક્ષિત</span>
+              </div>
+            </div>
+
+            <div className="p-3 rounded-2xl bg-indigo-50 border border-indigo-200 text-xs text-indigo-950 flex items-center justify-between">
+              <div>
+                <span className="font-bold block">કિસાનસેતુ ગુણવત્તા ગેરંટી:</span>
+                <span className="text-[11px] text-indigo-800">ખેડૂતના માલની ચકાસણી અને ડિલિવરી જોખમ કિસાનસેતુ લે છે — કંપની અને ખેડૂત બંને સંપૂર્ણ સુરક્ષિત.</span>
+              </div>
+              <button
+                onClick={() => onNavigate('market')}
+                className="px-3 py-1.5 rounded-xl bg-indigo-700 text-white font-bold text-xs shrink-0"
+              >
+                ઓર્ડર્સ મેનેજ કરો
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* 7. SPONSOR NGO CONSOLE */}
+        {role === 'SPONSOR_NGO' && (
+          <div className="bg-white p-6 rounded-3xl border border-rose-200 shadow-sm space-y-4">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+              <div className="flex items-center space-x-2">
+                <span className="p-2 rounded-xl bg-rose-100 text-rose-800">
+                  <Users className="w-5 h-5" />
+                </span>
+                <div>
+                  <h3 className="text-sm font-bold text-stone-900">ફાઉન્ડેશન CSR પારદર્શક લેજર (Foundation Impact Ledger)</h3>
+                  <p className="text-[11px] text-stone-500">ટાટા ટ્રસ્ટ, રિલાયન્સ, નાબાર્ડ અનુદાન · ૧૦૦% જાહેર ઓડિટેડ ટ્રેકિંગ</p>
+                </div>
+              </div>
+              <button
+                onClick={() => onNavigate('water_khater')}
+                className="px-3 py-1.5 rounded-xl bg-rose-700 text-white text-xs font-bold hover:bg-rose-600 transition"
+              >
+                ફંડિંગ લેજર જુઓ →
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200">
+                <span className="text-stone-500 block">કુલ જમા થયેલ CSR ગ્રાન્ટ:</span>
+                <span className="text-lg font-bold text-rose-800">₹1,55,00,000</span>
+                <span className="text-[10px] text-stone-500 block">૩ સંસ્થાઓ તરફથી અનુદાન</span>
+              </div>
+              <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200">
+                <span className="text-stone-500 block">લાભાન્વિત ખેડૂતો:</span>
+                <span className="text-lg font-bold text-emerald-800">12,450 ખેડૂતો</span>
+                <span className="text-[10px] text-stone-500 block">૪૨ ગામડાંઓમાં સીધો લાભ</span>
+              </div>
+              <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200">
+                <span className="text-stone-500 block">મફત સોઇલ કાર્ડ & સોલાર પંપ:</span>
+                <span className="text-lg font-bold text-blue-800">1,200 કાર્ડ્સ / 48 પંપ</span>
+                <span className="text-[10px] text-stone-500 block">૧૦૦% ચકાસાયેલ ગ્રાઉન્ડ ઈમ્પેક્ટ</span>
+              </div>
+            </div>
+
+            <div className="p-3 rounded-2xl bg-rose-50 border border-rose-200 text-xs text-rose-950 flex items-center justify-between">
+              <div>
+                <span className="font-bold block">જાહેર ઓડિટેડ ઈમ્પેક્ટ રિપોર્ટ:</span>
+                <span className="text-[11px] text-rose-800">કિસાનસેતુ બ્લોકચેન/ડિજિટલ લેજર પર ૧૦૦% પારદર્શક હિસાબ સરકાર અને જનતા માટે ઉપલબ્ધ.</span>
+              </div>
+              <button
+                onClick={() => alert('CSR વાર્ષિક ઓડિટેડ રિપોર્ટ PDF ડાઉનલોડ થઈ ગયો છે.')}
+                className="px-3 py-1.5 rounded-xl bg-rose-700 text-white font-bold text-xs shrink-0"
+              >
+                ઓડિટ રિપોર્ટ ડાઉનલોડ
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
