@@ -84,8 +84,8 @@
 
           <div class="pitch-stat-grid">
             <div class="stat-box">
-              <div class="stat-num" data-i18n="stat_market_val">$500B</div>
-              <div class="stat-label" data-i18n="stat_market_lbl">૨૦૨૬ સુધીમાં ભારતીય કૃષિ બજાર</div>
+              <div class="stat-num" data-i18n="stat_market_val">$500B+</div>
+              <div class="stat-label" data-i18n="stat_market_lbl">૨૦૨૬ સુધીમાં ભારતીય કૃષિ બજાર ($500 Billion+)</div>
               <div class="stat-desc">Projected Agri Market Volume</div>
             </div>
             <div class="stat-box">
@@ -100,6 +100,160 @@
             <li data-i18n="h1_feat2">દલાલો અને વચેટિયાઓના શોષણનો સંપૂર્ણ અંત</li>
             <li data-i18n="h1_feat3">ગુજરાતી, હિન્દી અને સ્થાનિક ભાષાઓમાં સરળ ઉપયોગ</li>
           </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE TELEMETRY STATUS CHECKER & SYSTEM HEALTH -->
+    <section class="section-pad" style="background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%); border-bottom: 1px solid #dcfce7;">
+      <div class="container">
+        <div style="background: #ffffff; border: 1.5px solid #86efac; border-radius: 28px; padding: 28px; box-shadow: 0 12px 30px rgba(22, 163, 74, 0.08);">
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 20px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="position: relative; display: flex; width: 14px; height: 14px;">
+                <span style="position: absolute; width: 100%; height: 100%; border-radius: 9999px; background: #22c55e; opacity: 0.75; animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;"></span>
+                <span style="position: relative; display: inline-flex; border-radius: 9999px; width: 14px; height: 14px; background: #16a34a;"></span>
+              </span>
+              <div>
+                <span style="font-size: 11px; font-weight: 800; color: #15803d; letter-spacing: 0.08em; text-transform: uppercase;">કિસાનસેતુ લાઈવ નેટવર્ક ટેલિમેટ્રી · LIVE SYSTEM PULSE</span>
+                <h3 style="font-size: 18px; font-weight: 800; color: #0f172a; margin: 2px 0 0;">ઓલ-ઇન્ડિયા લાઈવ સ્ટેટસ અને સિસ્ટમ હેલ્થ ચેક</h3>
+              </div>
+            </div>
+
+            <button id="livePulseBtn" onclick="runLiveHealthCheck()" style="background: #16a34a; color: #ffffff; border: none; padding: 10px 20px; border-radius: 14px; font-weight: 800; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);">
+              <span id="pulseIcon">⚡</span>
+              <span id="pulseBtnText">લાઈવ સ્ટેટસ ચેક કરો (Check Status)</span>
+            </button>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px;">
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 18px; padding: 16px;">
+              <span style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase;">APMC Mandi Nodes</span>
+              <div style="font-size: 22px; font-weight: 900; color: #0f172a; margin: 4px 0;">584 Mandis</div>
+              <span style="font-size: 11px; font-weight: 700; color: #16a34a;">✓ Realtime APMC Sync</span>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 18px; padding: 16px;">
+              <span style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase;">API & Edge Latency</span>
+              <div id="liveLatencyVal" style="font-size: 22px; font-weight: 900; color: #16a34a; margin: 4px 0;">14 ms</div>
+              <span id="liveLatencySub" style="font-size: 11px; font-weight: 700; color: #16a34a;">Ultra-Low Rural Latency</span>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 18px; padding: 16px;">
+              <span style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase;">Market Volume ($500B+)</span>
+              <div style="font-size: 22px; font-weight: 900; color: #0284c7; margin: 4px 0;">$500 Billion+</div>
+              <span style="font-size: 11px; font-weight: 700; color: #0369a1;">Indian Agri Market Scale</span>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 18px; padding: 16px;">
+              <span style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase;">System Operational Status</span>
+              <div id="liveStatusText" style="font-size: 22px; font-weight: 900; color: #16a34a; margin: 4px 0;">100% Operational</div>
+              <span style="font-size: 11px; font-weight: 700; color: #16a34a;">Offline-First Cache Ready</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 CORE GRASSROOTS BREAKTHROUGHS SECTION -->
+    <section class="section-pad" style="background: #ffffff; border-bottom: 1px solid #f1f5f9;">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag" style="background: #dcfce7; color: #15803d;">૭ મુખ્ય ગ્રામ્ય ક્રાંતિ અને ઉકેલો</span>
+          <h2>ખેડૂતો અને સંસ્થાઓ માટે <em>૭ અદ્યતન પાયાના ઉકેલો</em></h2>
+          <p class="section-subtitle">
+            કિસાનસેતુ પ્લેટફોર્મ પર ઉપલબ્ધ નવીનતમ ગ્રાઉન્ડબ્રેકિંગ સેવાઓ જે ખેડૂતોની રોજિંદી મુશ્કેલીઓનો કાયમી ઉકેલ લાવે છે:
+          </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+          <!-- 1. Water Sharing -->
+          <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 24px; padding: 24px; transition: all 0.3s ease;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="background: #dbeafe; color: #1e40af; font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 999px;">ઉકેલ ૧ · WATER SHARING</span>
+              <span style="font-size: 20px;">💧</span>
+            </div>
+            <h3 style="font-size: 16px; font-weight: 800; color: #0f172a; margin: 0 0 8px;">પાણીની અછત અને સસ્તું સિંચાઈ શેરિંગ</h3>
+            <p style="font-size: 12.5px; color: #475569; line-height: 1.6; margin: 0 0 12px;">
+              જે ખેડૂતો પાસે બોરવેલ કરાવવાના લાખો રૂપિયા નથી, તેમને નજીકના પાડોશી ખેડૂતના બોરવેલમાંથી કલાક દીઠ (₹૭૦-₹૧૨૦/કલાક) પાણી શેરિંગ, સોલાર લિફ્ટ અને સબસિડીયુક્ત ટેન્કર વ્યવસ્થા મળે છે.
+            </p>
+            <span style="font-size: 11px; font-weight: 700; color: #0284c7;">✓ Affordable Peer-to-Peer Irrigation</span>
+          </div>
+
+          <!-- 2. Khater Producer Role -->
+          <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 24px; padding: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="background: #fef3c7; color: #92400e; font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 999px;">ઉકેલ ૨ · KHATER PRODUCER</span>
+              <span style="font-size: 20px;">🌱</span>
+            </div>
+            <h3 style="font-size: 16px; font-weight: 800; color: #0f172a; margin: 0 0 8px;">ખાતર ઉત્પાદક રોલ & બજાર ભાવથી અડધા ભાવે ખાતર</h3>
+            <p style="font-size: 12.5px; color: #475569; line-height: 1.6; margin: 0 0 12px;">
+              રાસાયણિક ડીએપી અને યુરિયાના ઊંચા ભાવ અને અછતના સમયે દેશી અળસિયાં ખાતર, ગોહરી ખાતર અને જીવામૃત બનાવતા સ્થાનિક ખેડૂતો સીધું લિસ્ટિંગ કરીને ૫૦% સસ્તા ભાવે ખેડૂતો સુધી પહોંચાડે છે.
+            </p>
+            <span style="font-size: 11px; font-weight: 700; color: #d97706;">✓ Direct Organic Producer Marketplace</span>
+          </div>
+
+          <!-- 3. All Lab Reports -->
+          <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 24px; padding: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="background: #dcfce7; color: #166534; font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 999px;">ઉકેલ ૩ · ALL LAB REPORTS</span>
+              <span style="font-size: 20px;">🔬</span>
+            </div>
+            <h3 style="font-size: 16px; font-weight: 800; color: #0f172a; margin: 0 0 8px;">લેબ દ્વારા તમામ તપાસ રિપોર્ટ્સ (જમીન, પાણી અને ખાતર)</h3>
+            <p style="font-size: 12.5px; color: #475569; line-height: 1.6; margin: 0 0 12px;">
+              તમામ રિપોર્ટ્સ એક જ સ્થળે: (૧) સોઇલ હેલ્થ કાર્ડ (NPK, pH, ઓર્ગેનિક કાર્બન), (૨) બોરવેલ સિંચાઈ પાણી ક્ષાર-TDS-SAR રિપોર્ટ, અને (૩) ખાતર શુદ્ધતા % અને ભેળસેળ તપાસ સર્ટિફિકેટ.
+            </p>
+            <span style="font-size: 11px; font-weight: 700; color: #16a34a;">✓ 100% Certified Lab Analysis</span>
+          </div>
+
+          <!-- 4. Petrol Pump Contracts -->
+          <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 24px; padding: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="background: #ffedd5; color: #9a3412; font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 999px;">ઉકેલ ૪ · FLEET FUEL CONTRACTS</span>
+              <span style="font-size: 20px;">⛽</span>
+            </div>
+            <h3 style="font-size: 16px; font-weight: 800; color: #0f172a; margin: 0 0 8px;">ટ્રાન્સપોર્ટરો માટે પેટ્રોલ પંપ કરાર અને માસિક/વાર્ષિક બિલિંગ</h3>
+            <p style="font-size: 12.5px; color: #475569; line-height: 1.6; margin: 0 0 12px;">
+              ટ્રાન્સપોર્ટર ભાઈઓ રોકડ વગર Nayara, HPCL, IndianOil પરથી ડીઝલ ભરાવી શકે છે અને મહિને કે વર્ષે ₹૨.૫૦ થી ₹૩.૦૦ ના ડિસ્કાઉન્ટ સાથે ડિજિટલ હિસાબ ચૂકતે કરે છે.
+            </p>
+            <span style="font-size: 11px; font-weight: 700; color: #ea580c;">✓ Cashless Fleet Credit & Monthly Statement</span>
+          </div>
+
+          <!-- 5. Acre-wise Schemes -->
+          <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 24px; padding: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="background: #e0e7ff; color: #3730a3; font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 999px;">ઉકેલ ૫ · ACRE-WISE SCHEMES</span>
+              <span style="font-size: 20px;">📜</span>
+            </div>
+            <h3 style="font-size: 16px; font-weight: 800; color: #0f172a; margin: 0 0 8px;">જમીન ક્ષેત્રફળ (એકર મુજબ) સરકારી યોજના અને ડોક્યુમેન્ટ્સ</h3>
+            <p style="font-size: 12.5px; color: #475569; line-height: 1.6; margin: 0 0 12px;">
+              સીમાંત (< ૨ એકર), નાના (૨-૫ એકર) અને મોટા ખેડૂતો માટે ટાર્ગેટેડ સબસિડી મેચિંગ અને અરજી માટે જરૂરી ૭/૧૨, ૮-અ અને બેંક ડોક્યુમેન્ટ્સનું સંપૂર્ણ ચેકલિસ્ટ.
+            </p>
+            <span style="font-size: 11px; font-weight: 700; color: #4f46e5;">✓ Tailored Scheme Eligibility & Checklist</span>
+          </div>
+
+          <!-- 6. Corporate Procurement -->
+          <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 24px; padding: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="background: #fef08a; color: #854d0e; font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 999px;">ઉકેલ ૬ · CORPORATE TENDERS</span>
+              <span style="font-size: 20px;">🏢</span>
+            </div>
+            <h3 style="font-size: 16px; font-weight: 800; color: #0f172a; margin: 0 0 8px;">કંપની જરૂરિયાત પોસ્ટિંગ અને કિસાનસેતુ ક્વોલિટી ગેરંટી</h3>
+            <p style="font-size: 12.5px; color: #475569; line-height: 1.6; margin: 0 0 12px;">
+              અદાણી, બાલાજી, આઈટીસી જેવી કંપનીઓ સીધા ખરીદ ઓર્ડર મૂકે છે. કિસાનસેતુ ગુણવત્તા તપાસ, ગ્રેડિંગ અને રિસ્કની સંપૂર્ણ જવાબદારી લઈને એસ્ક્રોથી પેમેન્ટ ચૂકવે છે.
+            </p>
+            <span style="font-size: 11px; font-weight: 700; color: #ca8a04;">✓ Risk-Free Procurement Guarantee</span>
+          </div>
+
+          <!-- 7. Foundation Transparency -->
+          <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 24px; padding: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="background: #fce7f3; color: #9d174d; font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 999px;">ઉકેલ ૭ · FOUNDATION LEDGER</span>
+              <span style="font-size: 20px;">🤝</span>
+            </div>
+            <h3 style="font-size: 16px; font-weight: 800; color: #0f172a; margin: 0 0 8px;">ફાઉન્ડેશન અને CSR ફંડ પારદર્શક લેજર</h3>
+            <p style="font-size: 12.5px; color: #475569; line-height: 1.6; margin: 0 0 12px;">
+              ટાટા ટ્રસ્ટ, રિલાયન્સ ફાઉન્ડેશન અને નાબાર્ડ દ્વારા આપેલ અનુદાન કયા ગામના કયા ખેડૂતને પહોંચ્યું તેની ૧૦૦% ઓડિટેડ અને પારદર્શક પબ્લિક ટ્રેકિંગ સિસ્ટમ.
+            </p>
+            <span style="font-size: 11px; font-weight: 700; color: #be185d;">✓ 100% Auditable CSR Impact Tracking</span>
+          </div>
         </div>
       </div>
     </section>

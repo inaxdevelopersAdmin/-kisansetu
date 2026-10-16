@@ -8,9 +8,9 @@ import {
   TrendingUp,
   Landmark,
   Mic,
-  Building2,
-  Users,
-  ShieldAlert,
+  Droplets,
+  Sprout,
+  Sparkles,
 } from 'lucide-react';
 import { Header } from './components/Header';
 import { VoiceAssistantModal } from './components/VoiceAssistantModal';
@@ -21,13 +21,15 @@ import { SoilView } from './views/SoilView';
 import { TransportView } from './views/TransportView';
 import { MarketView } from './views/MarketView';
 import { SchemesView } from './views/SchemesView';
+import { LandingView } from './views/LandingView';
+import { WaterAndKhaterView } from './views/WaterAndKhaterView';
 import { Language, translations } from './i18n';
 import { Role, KhataEntry } from './types';
 import { api, getOfflineQueue } from './services/api';
 
 export const App: React.FC = () => {
-  const [currentTab, setCurrentTab] = useState('dashboard');
-  const [lang, setLang] = useState<Language>('hi');
+  const [currentTab, setCurrentTab] = useState('pitch');
+  const [lang, setLang] = useState<Language>('gu');
   const [role, setRole] = useState<Role>('FARMER');
   const [isVoiceOpen, setIsVoiceOpen] = useState(false);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -79,15 +81,16 @@ export const App: React.FC = () => {
 
   const handleRoleChange = (newRole: Role) => {
     setRole(newRole);
-    const roleLabels: Record<Role, string> = {
-      FARMER: lang === 'hi' ? 'किसान (Farmer)' : 'Farmer',
-      AGRI_LAB: lang === 'hi' ? 'मृदा प्रयोगशाला (Agri Lab)' : 'Agri Lab Specialist',
-      TRANSPORTER: lang === 'hi' ? 'ट्रांसपोर्टर (Logistics)' : 'Transporter Hub',
-      GOVERNMENT: lang === 'hi' ? 'सरकारी कृषि अधिकारी (Govt)' : 'Govt Extension Officer',
-      AGRO_COMPANY: lang === 'hi' ? 'कृषि कंपनी (Agro Co)' : 'Agro Procurement Buyer',
-      SPONSOR_NGO: lang === 'hi' ? 'सहयोगी संस्था (NGO)' : 'Sponsor / NGO Director',
+    const roleLabels: Record<Role, { en: string; hi: string; gu: string }> = {
+      FARMER: { en: 'Farmer', hi: 'किसान (Farmer)', gu: 'ખેડૂત (Farmer)' },
+      KHATER_PRODUCER: { en: 'Khater Producer', hi: 'खाद उत्पादक (Khater)', gu: 'ખાતર ઉત્પાદક (Khater)' },
+      AGRI_LAB: { en: 'Agri Lab Specialist', hi: 'मृदा प्रयोगशाला (Agri Lab)', gu: 'જમીન પ્રયોગશાળા (Agri Lab)' },
+      TRANSPORTER: { en: 'Transporter Hub', hi: 'ट्रांसपोर्टर (Logistics)', gu: 'ટ્રાન્સપોર્ટર (Logistics)' },
+      GOVERNMENT: { en: 'Govt Extension Officer', hi: 'सरकारी कृषि अधिकारी (Govt)', gu: 'સરકારી કૃષિ અધિકારી (Govt)' },
+      AGRO_COMPANY: { en: 'Agro Procurement Buyer', hi: 'कृषि कंपनी (Agro Co)', gu: 'એગ્રો કંપની (Agro Co)' },
+      SPONSOR_NGO: { en: 'Sponsor / NGO Director', hi: 'सहयोगी संस्था (NGO)', gu: 'સેવા સંસ્થા / ટ્રસ્ટ (NGO)' },
     };
-    setRoleToast(roleLabels[newRole]);
+    setRoleToast(roleLabels[newRole][lang]);
     setTimeout(() => setRoleToast(null), 3000);
   };
 
@@ -115,56 +118,65 @@ export const App: React.FC = () => {
     badge?: number;
   }
 
-  // Role-customized navigation items
+  // Role-customized navigation items in English, Hindi, and Gujarati
   const getNavItemsForRole = (): NavItem[] => {
     const common: NavItem[] = [
+      { id: 'pitch', label: lang === 'gu' ? 'મુખ્ય પિચ / વિઝન' : lang === 'hi' ? 'पिच प्रेजेंटेशन' : 'Pitch Presentation', icon: Sparkles },
       { id: 'dashboard', label: t.nav.dashboard, icon: LayoutDashboard },
     ];
 
     switch (role) {
+      case 'KHATER_PRODUCER':
+        return [
+          ...common,
+          { id: 'water_khater', label: lang === 'gu' ? 'ખાતર સ્ટોક અને ઓર્ડર' : lang === 'hi' ? 'खाद स्टॉक व ऑर्डर्स' : 'Khater Stock & Orders', icon: Sprout },
+          { id: 'schemes', label: lang === 'gu' ? 'ઓર્ગેનિક ખાતર સબસિડી' : lang === 'hi' ? 'जैविक खाद सब्सिडी' : 'Organic Subsidies', icon: Landmark },
+          { id: 'khata', label: lang === 'gu' ? 'વેચાણ ખાતાવહી' : lang === 'hi' ? 'बिक्री खाता बही' : 'Sales Khata', icon: BookOpen },
+        ];
       case 'AGRI_LAB':
         return [
           ...common,
-          { id: 'soil', label: lang === 'hi' ? 'लैब परीक्षण व नमूने' : 'Lab Soil Testing', icon: FlaskConical },
-          { id: 'doctor', label: lang === 'hi' ? 'फसल रोग परामर्श' : 'Crop Disease Guide', icon: Bug },
-          { id: 'schemes', label: lang === 'hi' ? 'लैब सब्सिडी योजनाएं' : 'Lab Grants & Schemes', icon: Landmark },
+          { id: 'soil', label: lang === 'gu' ? 'લેબ સેમ્પલ અને ટેસ્ટિંગ' : lang === 'hi' ? 'लैब परीक्षण व नमूने' : 'Lab Soil Testing', icon: FlaskConical },
+          { id: 'doctor', label: lang === 'gu' ? 'પાક રોગ માર્ગદર્શન' : lang === 'hi' ? 'फसल रोग परामर्श' : 'Crop Disease Guide', icon: Bug },
+          { id: 'schemes', label: lang === 'gu' ? 'લેબ સબસિડી યોજનાઓ' : lang === 'hi' ? 'लैब सब्सिडी योजनाएं' : 'Lab Grants & Schemes', icon: Landmark },
           { id: 'market', label: t.nav.market, icon: TrendingUp },
         ];
       case 'TRANSPORTER':
         return [
           ...common,
-          { id: 'transport', label: lang === 'hi' ? 'फ्लीट व बुकिंग' : 'Fleet & Dispatch Bookings', icon: Truck },
-          { id: 'market', label: lang === 'hi' ? 'मंडी आवक भाव' : 'Mandi Inflow Rates', icon: TrendingUp },
-          { id: 'khata', label: lang === 'hi' ? 'डीजल व ट्रिप खाता' : 'Transit Khata', icon: BookOpen },
+          { id: 'transport', label: lang === 'gu' ? 'વાહન ફ્લીટ અને બુકિંગ' : lang === 'hi' ? 'फ्लीट व बुकिंग' : 'Fleet & Dispatch Bookings', icon: Truck },
+          { id: 'market', label: lang === 'gu' ? 'માર્કેટ યાર્ડ આવક' : lang === 'hi' ? 'मंडी आवक भाव' : 'Mandi Inflow Rates', icon: TrendingUp },
+          { id: 'khata', label: lang === 'gu' ? 'ડીઝલ અને ટ્રીપ ખાતાવહી' : lang === 'hi' ? 'डीजल व ट्रिप खाता' : 'Transit Khata', icon: BookOpen },
         ];
       case 'GOVERNMENT':
         return [
           ...common,
-          { id: 'schemes', label: lang === 'hi' ? 'सरकारी योजनाएं व सब्सिडी' : 'Schemes & Verification', icon: Landmark },
-          { id: 'doctor', label: lang === 'hi' ? 'जिला कीट प्रकोप मॉनिटरिंग' : 'Pest Outbreak Alert', icon: Bug },
-          { id: 'market', label: lang === 'hi' ? 'एमएसपी व थोक भाव' : 'MSP & Price Surveillance', icon: TrendingUp },
-          { id: 'soil', label: lang === 'hi' ? 'जिला मृदा स्वास्थ्य' : 'District Soil Health', icon: FlaskConical },
+          { id: 'schemes', label: lang === 'gu' ? 'સરકારી યોજનાઓ અને સબસિડી' : lang === 'hi' ? 'सरकारी योजनाएं व सब्सिडी' : 'Schemes & Verification', icon: Landmark },
+          { id: 'doctor', label: lang === 'gu' ? 'જિલ્લા રોગ નિયંત્રણ' : lang === 'hi' ? 'जिला कीट प्रकोप मॉनिटरिंग' : 'Pest Outbreak Alert', icon: Bug },
+          { id: 'market', label: lang === 'gu' ? 'ટેકાના ભાવ અને બજાર ભાવ' : lang === 'hi' ? 'एमएसपी व थोक भाव' : 'MSP & Price Surveillance', icon: TrendingUp },
+          { id: 'soil', label: lang === 'gu' ? 'જિલ્લા જમીન ફળદ્રુપતા' : lang === 'hi' ? 'जिला मृदा स्वास्थ्य' : 'District Soil Health', icon: FlaskConical },
         ];
       case 'AGRO_COMPANY':
         return [
           ...common,
-          { id: 'market', label: lang === 'hi' ? 'थोक फसल खरीद व लॉट' : 'Direct Mandi Procurement', icon: TrendingUp },
-          { id: 'transport', label: lang === 'hi' ? 'थोक माल परिवहन' : 'Freight Logistics', icon: Truck },
-          { id: 'doctor', label: lang === 'hi' ? 'प्रमाणित बीज व इनपुट' : 'Seed & Input Catalog', icon: Bug },
-          { id: 'soil', label: lang === 'hi' ? 'मृदा प्रमाणन जांच' : 'Soil Quality Verification', icon: FlaskConical },
+          { id: 'market', label: lang === 'gu' ? 'જથ્થાબંધ પાક ખરીદ' : lang === 'hi' ? 'थोक फसल खरीद व लॉट' : 'Direct Mandi Procurement', icon: TrendingUp },
+          { id: 'transport', label: lang === 'gu' ? 'જથ્થાબંધ માલ પરિવહન' : lang === 'hi' ? 'थोक माल परिवहन' : 'Freight Logistics', icon: Truck },
+          { id: 'doctor', label: lang === 'gu' ? 'બિયારણ અને ખાતર કેટલોગ' : lang === 'hi' ? 'प्रमाणित बीज व इनपुट' : 'Seed & Input Catalog', icon: Bug },
+          { id: 'soil', label: lang === 'gu' ? 'જમીન ઓર્ગેનિક તપાસ' : lang === 'hi' ? 'मृदा प्रमाणन जांच' : 'Soil Quality Verification', icon: FlaskConical },
         ];
       case 'SPONSOR_NGO':
         return [
           ...common,
-          { id: 'schemes', label: lang === 'hi' ? 'सीएसआर अनुदान व सहायता' : 'CSR Grants & Subsidies', icon: Landmark },
-          { id: 'soil', label: lang === 'hi' ? 'मुफ्त मिट्टी जांच प्रोजेक्ट' : 'Sponsored Soil Testing', icon: FlaskConical },
-          { id: 'khata', label: lang === 'hi' ? 'किसान बचत आंकड़े' : 'Farmer Income Impact', icon: BookOpen },
-          { id: 'doctor', label: lang === 'hi' ? 'जैविक खेती कार्यशालाएं' : 'Organic Training', icon: Bug },
+          { id: 'water_khater', label: lang === 'gu' ? 'CSR ફંડિંગ અને દાન લેજર' : lang === 'hi' ? 'सीएसआर फंडिंग लेजर' : 'CSR Funding Ledger', icon: Droplets },
+          { id: 'schemes', label: lang === 'gu' ? 'CSR ગ્રાન્ટ અને સબસિડી' : lang === 'hi' ? 'सीएसआर अनुदान व सहायता' : 'CSR Grants & Subsidies', icon: Landmark },
+          { id: 'soil', label: lang === 'gu' ? 'મફત જમીન ટેસ્ટ પ્રોજેક્ટ' : lang === 'hi' ? 'मुफ्त मिट्टी जांच प्रोजेक्ट' : 'Sponsored Soil Testing', icon: FlaskConical },
+          { id: 'khata', label: lang === 'gu' ? 'ખેડૂત બચત વિશ્લેષણ' : lang === 'hi' ? 'किसान बचत आंकड़े' : 'Farmer Income Impact', icon: BookOpen },
         ];
       case 'FARMER':
       default:
         return [
           ...common,
+          { id: 'water_khater', label: lang === 'gu' ? 'પાણી અને સસ્તું ખાતર' : lang === 'hi' ? 'जल व सस्ता खाद' : 'Water & Khater Hub', icon: Droplets },
           { id: 'khata', label: t.nav.khata, icon: BookOpen, badge: pendingQueueCount > 0 ? pendingQueueCount : undefined },
           { id: 'doctor', label: t.nav.doctor, icon: Bug },
           { id: 'soil', label: t.nav.soil, icon: FlaskConical },
@@ -178,7 +190,7 @@ export const App: React.FC = () => {
   const navItems = getNavItemsForRole();
 
   return (
-    <div className="min-h-screen bg-stone-100 flex flex-col font-sans pb-20 md:pb-6">
+    <div className="min-h-screen bg-emerald-50/30 flex flex-col font-sans pb-20 md:pb-6">
       {/* Universal Top Header */}
       <Header
         currentTab={currentTab}
@@ -194,26 +206,26 @@ export const App: React.FC = () => {
         setRole={handleRoleChange}
       />
 
-      {/* Role Switch Feedback Toast */}
+      {/* Role Switch Feedback Toast - Light Green Alert */}
       {roleToast && (
-        <div className="fixed top-20 right-4 z-50 animate-bounce bg-agri-950 text-white px-4 py-2.5 rounded-2xl shadow-2xl border border-harvest-400/60 flex items-center space-x-2 text-xs">
-          <span className="w-2.5 h-2.5 rounded-full bg-harvest-400 animate-ping" />
-          <span className="font-semibold text-agri-200">
-            {lang === 'hi' ? 'सक्रिय भूमिका बदली गई:' : 'Active Role Switched to:'}
+        <div className="fixed top-20 right-4 z-50 animate-bounce bg-white text-emerald-950 px-4 py-2.5 rounded-2xl shadow-xl border border-emerald-300 flex items-center space-x-2 text-xs">
+          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
+          <span className="font-semibold text-stone-600">
+            {lang === 'gu' ? 'રોલ બદલાયો:' : lang === 'hi' ? 'सक्रिय भूमिका बदली गई:' : 'Active Role Switched to:'}
           </span>
-          <strong className="text-harvest-300 font-extrabold">{roleToast}</strong>
+          <strong className="text-emerald-700 font-extrabold">{roleToast}</strong>
         </div>
       )}
 
       {/* Main Container */}
       <div className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-          {/* Desktop Navigation Sidebar */}
+          {/* Desktop Navigation Sidebar - Crisp Light Card */}
           <aside className="hidden md:block md:col-span-3 lg:col-span-3">
-            <div className="sticky top-24 glass-panel p-3 rounded-3xl border border-stone-200/80 shadow-sm space-y-1">
+            <div className="sticky top-24 bg-white p-3 rounded-3xl border border-emerald-100 shadow-sm space-y-1">
               <div className="px-3 py-2 text-[11px] font-bold text-stone-400 uppercase tracking-wider flex items-center justify-between">
-                <span>{lang === 'hi' ? 'नेविगेशन' : 'Workspace Navigation'}</span>
-                <span className="text-[10px] text-agri-700 font-extrabold uppercase bg-agri-100 px-1.5 py-0.5 rounded">
+                <span>{lang === 'gu' ? 'મેનૂ' : lang === 'hi' ? 'नेविगेशन' : 'Navigation'}</span>
+                <span className="text-[10px] text-emerald-800 font-extrabold uppercase bg-emerald-100/80 px-2 py-0.5 rounded-full">
                   {role}
                 </span>
               </div>
@@ -226,16 +238,16 @@ export const App: React.FC = () => {
                     onClick={() => setCurrentTab(item.id)}
                     className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-bold transition ${
                       active
-                        ? 'bg-agri-800 text-white shadow-sm'
-                        : 'text-stone-700 hover:bg-stone-100'
+                        ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
+                        : 'text-stone-700 hover:bg-emerald-50 hover:text-emerald-900'
                     }`}
                   >
                     <div className="flex items-center space-x-2.5">
-                      <Icon className={`w-4 h-4 ${active ? 'text-harvest-400' : 'text-stone-500'}`} />
+                      <Icon className={`w-4 h-4 ${active ? 'text-white' : 'text-emerald-600'}`} />
                       <span className="truncate">{item.label}</span>
                     </div>
                     {item.badge && (
-                      <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500 text-agri-950">
+                      <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-400 text-stone-900">
                         {item.badge}
                       </span>
                     )}
@@ -243,12 +255,12 @@ export const App: React.FC = () => {
                 );
               })}
 
-              <div className="pt-4 mt-4 border-t border-stone-200">
+              <div className="pt-3 mt-3 border-t border-stone-100">
                 <button
                   onClick={() => setIsVoiceOpen(true)}
-                  className="w-full p-3 rounded-2xl bg-gradient-to-r from-agri-800 to-agri-900 text-white flex items-center space-x-2 text-xs font-bold shadow-md hover:from-agri-700 hover:to-agri-800 transition"
+                  className="w-full p-3 rounded-2xl bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-500 text-white flex items-center space-x-2 text-xs font-bold shadow-md shadow-emerald-600/20 hover:from-emerald-500 hover:to-green-500 transition"
                 >
-                  <Mic className="w-4 h-4 text-harvest-300 animate-pulse" />
+                  <Mic className="w-4 h-4 text-emerald-100 animate-pulse" />
                   <span className="truncate">{t.voiceAssistant}</span>
                 </button>
               </div>
@@ -257,6 +269,12 @@ export const App: React.FC = () => {
 
           {/* Active View Content Area */}
           <main className="col-span-1 md:col-span-9 lg:col-span-9">
+            {currentTab === 'pitch' && (
+              <LandingView
+                lang={lang}
+                onLaunchApp={() => setCurrentTab('dashboard')}
+              />
+            )}
             {currentTab === 'dashboard' && (
               <DashboardView
                 lang={lang}
@@ -282,12 +300,13 @@ export const App: React.FC = () => {
             {currentTab === 'transport' && <TransportView lang={lang} />}
             {currentTab === 'market' && <MarketView lang={lang} />}
             {currentTab === 'schemes' && <SchemesView lang={lang} />}
+            {currentTab === 'water_khater' && <WaterAndKhaterView lang={lang} />}
           </main>
         </div>
       </div>
 
       {/* Mobile Sticky Bottom Navigation Bar */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 shadow-lg px-2 py-1">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-emerald-100 shadow-lg px-2 py-1">
         <div className="flex items-center justify-around">
           {navItems.slice(0, 5).map((item) => {
             const Icon = item.icon;
@@ -297,13 +316,13 @@ export const App: React.FC = () => {
                 key={item.id}
                 onClick={() => setCurrentTab(item.id)}
                 className={`flex flex-col items-center justify-center p-1.5 rounded-xl transition relative ${
-                  active ? 'text-agri-800 font-bold' : 'text-stone-500'
+                  active ? 'text-emerald-700 font-extrabold' : 'text-stone-500'
                 }`}
               >
-                <Icon className={`w-5 h-5 ${active ? 'text-agri-700' : 'text-stone-400'}`} />
+                <Icon className={`w-5 h-5 ${active ? 'text-emerald-600' : 'text-stone-400'}`} />
                 <span className="text-[10px] mt-0.5 truncate max-w-[56px]">{item.label}</span>
                 {item.badge && (
-                  <span className="absolute -top-1 right-2 w-4 h-4 rounded-full bg-amber-500 text-agri-950 text-[9px] font-extrabold flex items-center justify-center">
+                  <span className="absolute -top-1 right-2 w-4 h-4 rounded-full bg-amber-400 text-stone-900 text-[9px] font-extrabold flex items-center justify-center">
                     {item.badge}
                   </span>
                 )}
@@ -313,12 +332,12 @@ export const App: React.FC = () => {
           {/* Quick Voice button on mobile */}
           <button
             onClick={() => setIsVoiceOpen(true)}
-            className="flex flex-col items-center justify-center p-1.5 rounded-xl text-agri-800"
+            className="flex flex-col items-center justify-center p-1.5 rounded-xl text-emerald-800"
           >
-            <div className="w-7 h-7 rounded-full bg-agri-700 text-white flex items-center justify-center shadow-sm">
-              <Mic className="w-4 h-4 text-harvest-300" />
+            <div className="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-sm">
+              <Mic className="w-4 h-4 text-emerald-100" />
             </div>
-            <span className="text-[10px] mt-0.5 font-bold">Voice</span>
+            <span className="text-[10px] mt-0.5 font-bold">વૉઇસ</span>
           </button>
         </div>
       </nav>

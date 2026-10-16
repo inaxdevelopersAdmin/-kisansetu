@@ -8,7 +8,6 @@ import {
   FlaskConical,
   Truck,
   IndianRupee,
-  ArrowUpRight,
   ShieldCheck,
   FileCheck,
   Building2,
@@ -19,6 +18,9 @@ import {
   Send,
   BarChart3,
   Calendar,
+  Droplets,
+  Sprout,
+  Landmark,
 } from 'lucide-react';
 import { Language, translations } from '../i18n';
 import { Role } from '../types';
@@ -38,7 +40,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 }) => {
   const t = translations[lang];
 
-  // Role Profile Metas
+  // Role Profile Metas with English, Hindi, and Gujarati
   const roleProfiles: Record<
     Role,
     {
@@ -52,75 +54,123 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
     }
   > = {
     FARMER: {
-      badge: lang === 'hi' ? '👨‍🌾 पंजीकृत किसान प्रोफाइल' : '👨‍🌾 Verified Farmer Profile',
-      name: lang === 'hi' ? 'रमेश पटेल (किसान)' : 'Ramesh Patel (Farmer)',
-      title: lang === 'hi' ? '8.5 एकड़ रकबा · गेहूं व सोयाबीन' : '8.5 Acres Land · Wheat & Soybean',
-      location: lang === 'hi' ? 'सीहोर, मध्य प्रदेश' : 'Sehore, Madhya Pradesh',
+      badge: lang === 'gu' ? '👨‍🌾 પ્રમાણિત ખેડૂત પ્રોફાઇલ' : lang === 'hi' ? '👨‍🌾 पंजीकृत किसान प्रोफाइल' : '👨‍🌾 Verified Farmer Profile',
+      name: lang === 'gu' ? 'રમેશભાઈ પટેલ (ખેડૂત)' : lang === 'hi' ? 'रमेश पटेल (किसान)' : 'Ramesh Patel (Farmer)',
+      title: lang === 'gu' ? '૮.૫ એકર જમીન · ઘઉં અને સોયાબીન' : lang === 'hi' ? '8.5 एकड़ रकबा · गेहूं व सोयाबीन' : '8.5 Acres Land · Wheat & Soybean',
+      location: lang === 'gu' ? 'સીહોર, મધ્ય પ્રદેશ / ગુજરાત ક્લસ્ટર' : lang === 'hi' ? 'सीहोर, मध्य प्रदेश' : 'Sehore, MP / Gujarat Cluster',
       stats: [
         {
           title: t.dashboard.netBalance,
           value: `₹${summary.netBalance.toLocaleString('en-IN')}`,
-          subtext: `₹${summary.totalIncome.toLocaleString('en-IN')} earned / ₹${summary.totalExpense.toLocaleString('en-IN')} input cost`,
+          subtext: lang === 'gu' ? `₹${summary.totalIncome.toLocaleString('en-IN')} આવક / ₹${summary.totalExpense.toLocaleString('en-IN')} ખર્ચ` : `₹${summary.totalIncome.toLocaleString('en-IN')} earned / ₹${summary.totalExpense.toLocaleString('en-IN')} cost`,
           icon: IndianRupee,
           color: 'emerald',
           targetTab: 'khata',
         },
         {
-          title: lang === 'hi' ? 'आज का गेहूं मंडी भाव' : 'Today Wheat Mandi Rate',
+          title: lang === 'gu' ? 'આજનો ઘઉં બજાર ભાવ' : lang === 'hi' ? 'आज का गेहूं मंडी भाव' : 'Today Wheat Mandi Rate',
           value: '₹2,820 / Qtl',
-          subtext: '+₹40 up from yesterday (Sehore Mandi)',
+          subtext: lang === 'gu' ? '+₹૪૦ વધારો (સીહોર માર્કેટ યાર્ડ)' : '+₹40 up from yesterday (Mandi)',
           icon: TrendingUp,
           color: 'harvest',
           targetTab: 'market',
         },
         {
           title: t.dashboard.pendingSoilTests,
-          value: '1 Ready · 1 In-Lab',
-          subtext: 'Soil Health Card ready (KVK Lab)',
+          value: lang === 'gu' ? '૧ તૈયાર · ૧ લેબમાં' : '1 Ready · 1 In-Lab',
+          subtext: lang === 'gu' ? 'સોઇલ હેલ્થ કાર્ડ તૈયાર છે (KVK લેબ)' : 'Soil Health Card ready (KVK Lab)',
           icon: FlaskConical,
           color: 'blue',
           targetTab: 'soil',
         },
       ],
       actions: [
-        { title: t.dashboard.addIncomeExpense, subtitle: lang === 'hi' ? 'ऑफलाइन खाता बही' : 'Offline Farm Ledger', icon: BookOpen, color: 'emerald', tab: 'khata' },
-        { title: t.dashboard.scanCrop, subtitle: lang === 'hi' ? 'एआई फसल डॉक्टर' : 'AI Disease Scan', icon: Bug, color: 'red', tab: 'doctor' },
-        { title: t.dashboard.orderSoilTest, subtitle: lang === 'hi' ? 'डिजिटल सॉइल कार्ड' : 'Soil Nutrient Test', icon: FlaskConical, color: 'blue', tab: 'soil' },
-        { title: t.dashboard.bookTractor, subtitle: lang === 'hi' ? 'खेत से मंडी वाहन' : 'Farm-to-Mandi Dispatch', icon: Truck, color: 'amber', tab: 'transport' },
+        { title: t.dashboard.addIncomeExpense, subtitle: lang === 'gu' ? 'ઓફલાઇન ખાતાવહી' : lang === 'hi' ? 'ऑफलाइन खाता बही' : 'Offline Farm Ledger', icon: BookOpen, color: 'emerald', tab: 'khata' },
+        { title: lang === 'gu' ? 'પાણી અને સસ્તું ખાતર' : lang === 'hi' ? 'जल व सस्ता खाद' : 'Water & Khater Hub', subtitle: lang === 'gu' ? 'સિંચાઈ અને ઓર્ગેનિક ખાતર' : 'Affordable Water & Khater', icon: Droplets, color: 'blue', tab: 'water_khater' },
+        { title: t.dashboard.scanCrop, subtitle: lang === 'gu' ? 'AI પાક રોગ તપાસ' : lang === 'hi' ? 'एआई फसल डॉक्टर' : 'AI Disease Scan', icon: Bug, color: 'red', tab: 'doctor' },
+        { title: t.dashboard.orderSoilTest, subtitle: lang === 'gu' ? 'ડિજિટલ સોઇલ કાર્ડ' : lang === 'hi' ? 'डिजिटल सॉइल कार्ड' : 'Soil Nutrient Test', icon: FlaskConical, color: 'blue', tab: 'soil' },
+        { title: t.dashboard.bookTractor, subtitle: lang === 'gu' ? 'ખેતરથી યાર્ડ વાહન' : lang === 'hi' ? 'खेत से मंडी वाहन' : 'Farm-to-Mandi Dispatch', icon: Truck, color: 'amber', tab: 'transport' },
       ],
       alert: {
         type: 'warning',
-        title: lang === 'hi' ? 'कृषि विभाग कीट चेतावनी (Zaid 2026): ' : 'Agriculture Warning: ',
-        text: lang === 'hi'
+        title: lang === 'gu' ? 'કૃષિ વિભાગ જીવાત ચેતવણી: ' : lang === 'hi' ? 'कृषि विभाग कीट चेतावनी (Zaid 2026): ' : 'Agriculture Warning: ',
+        text: lang === 'gu'
+          ? 'મગના પાકમાં પીળી છાંટ વાયરસથી બચવા સફેદ માખીનું નિયંત્રણ કરો. થાયામેથોક્સામ 25% WG નો છંટકાવ કરો.'
+          : lang === 'hi'
           ? 'मूंग की फसल में पीला मोजेक वायरस (YMV) से बचाव हेतु सफेद मक्खी का नियंत्रण करें। थायमेथोक्सम 25% WG का छिड़काव करें।'
           : 'Control whiteflies in summer moong to stop Yellow Mosaic Virus using Thiamethoxam 25% WG.',
       },
     },
 
-    AGRI_LAB: {
-      badge: lang === 'hi' ? '🔬 प्रमाणित मृदा व जल प्रयोगशाला' : '🔬 Certified Agri Testing Lab',
-      name: lang === 'hi' ? 'कृषि विज्ञान केंद्र मृदा प्रयोगशाला' : 'KVK Soil & Water Testing Center',
-      title: lang === 'hi' ? 'लाइसेंस: MP-AGRI-LAB-2024 · ISO 17025' : 'License: MP-AGRI-LAB-2024 · ISO 17025',
-      location: lang === 'hi' ? 'भोपाल व सीहोर संभाग' : 'Bhopal & Sehore Division',
+    KHATER_PRODUCER: {
+      badge: lang === 'gu' ? '🌱 પ્રમાણિત ઓર્ગેનિક ખાતર ઉત્પાદક' : lang === 'hi' ? '🌱 प्रमाणित जैविक खाद उत्पादक' : '🌱 Certified Organic Khater Producer',
+      name: lang === 'gu' ? 'કાંતિભાઈ પટેલ (અળસિયા ખાતર ઉત્પાદક)' : lang === 'hi' ? 'कांतिभाई पटेल (वर्मीकम्पोस्ट यूनिट)' : 'Kantibhai Patel (Vermicompost Unit)',
+      title: lang === 'gu' ? 'વાર્ષિક ૪૫ ટન વર્મીકમ્પોસ્ટ અને જીવામૃત ઉત્પાદન' : lang === 'hi' ? 'वार्षिक 45 टन वर्मीकम्पोस्ट उत्पादन' : '45 Tonnes/Year Bio-Fertilizer Unit',
+      location: lang === 'gu' ? 'સાંપા ક્લસ્ટર, ગાંધીનગર' : 'Gandhinagar Agro Cluster',
       stats: [
         {
-          title: lang === 'hi' ? 'जांच हेतु लंबित नमूने' : 'Pending Sample Queue',
+          title: lang === 'gu' ? 'બુક થયેલ ઓર્ડર્સ' : 'Booked Orders',
+          value: '142 થેલી',
+          subtext: lang === 'gu' ? 'ચાલુ સપ્તાહે ₹૩૫,૫૦૦ નું વેચાણ' : '₹35,500 sales this week',
+          icon: Sprout,
+          color: 'emerald',
+          targetTab: 'water_khater',
+        },
+        {
+          title: lang === 'gu' ? 'તૈયાર ખાતર સ્ટોક' : 'Ready Stock',
+          value: '280 થેલી',
+          subtext: lang === 'gu' ? '૫૦ કિગ્રા ગ્રેડ-A વર્મીકમ્પોસ્ટ' : '50kg Grade-A Vermicompost',
+          icon: Award,
+          color: 'blue',
+          targetTab: 'water_khater',
+        },
+        {
+          title: lang === 'gu' ? 'સરકારી ઓર્ગેનિક સબસિડી' : 'Organic Subsidy',
+          value: '₹40,000 મંજૂર',
+          subtext: lang === 'gu' ? 'PKVY યોજના હેઠળ પ્રોત્સાહન' : 'Approved under PKVY',
+          icon: Landmark,
+          color: 'amber',
+          targetTab: 'schemes',
+        },
+      ],
+      actions: [
+        { title: lang === 'gu' ? 'ખાતર સ્ટોક લિસ્ટિંગ' : 'Manage Khater Stock', subtitle: lang === 'gu' ? 'ઓર્ડર્સ અને સ્ટોક' : 'Stock & Orders', icon: Sprout, color: 'emerald', tab: 'water_khater' },
+        { title: lang === 'gu' ? 'વેચાણ ખાતાવહી' : 'Sales Khata', subtitle: lang === 'gu' ? 'આવક-ખર્ચ હિસાબ' : 'Sales Ledger', icon: BookOpen, color: 'blue', tab: 'khata' },
+        { title: lang === 'gu' ? 'ઓર્ગેનિક સબસિડી' : 'Organic Subsidies', subtitle: lang === 'gu' ? 'PKVY યોજના સહાય' : 'PKVY Assistance', icon: Landmark, color: 'amber', tab: 'schemes' },
+      ],
+      alert: {
+        type: 'success',
+        title: lang === 'gu' ? 'ખેડૂત માંગણી એલર્ટ: ' : 'High Demand Alert: ',
+        text: lang === 'gu'
+          ? 'રાસાયણિક ખાતરોના ઊંચા ભાવને કારણે આ અઠવાડિયે અળસિયા ખાતર અને જીવામૃતની માંગમાં ૬૦% નો વધારો થયો છે.'
+          : 'High demand surge for Vermicompost and Jeevamrut from 18 nearby villages due to chemical fertilizer price spikes.',
+      },
+    },
+
+    AGRI_LAB: {
+      badge: lang === 'gu' ? '🔬 પ્રમાણિત જમીન અને પાણી લેબોરેટરી' : lang === 'hi' ? '🔬 प्रमाणित मृदा व जल प्रयोगशाला' : '🔬 Certified Agri Testing Lab',
+      name: lang === 'gu' ? 'કૃષિ વિજ્ઞાન કેન્દ્ર સોઇલ ટેસ્ટિંગ લેબ' : lang === 'hi' ? 'कृषि विज्ञान केंद्र मृदा प्रयोगशाला' : 'KVK Soil & Water Testing Center',
+      title: lang === 'gu' ? 'માન્યતા નં: AGRI-LAB-2024 · ISO 17025' : lang === 'hi' ? 'लाइसेंस: MP-AGRI-LAB-2024 · ISO 17025' : 'License: AGRI-LAB-2024 · ISO 17025',
+      location: lang === 'gu' ? 'વિભાગીય મુખ્ય પ્રયોગશાળા' : lang === 'hi' ? 'भोपाल व सीहोर संभाग' : 'Central Agro Division',
+      stats: [
+        {
+          title: lang === 'gu' ? 'તપાસ માટે બાકી સેમ્પલ' : lang === 'hi' ? 'जांच हेतु लंबित नमूने' : 'Pending Sample Queue',
           value: '18 Samples',
-          subtext: '7 urgent (Pre-Sowing Cotton)',
+          subtext: lang === 'gu' ? '૭ તાત્કાલિક (વાવણી પૂર્વે કપાસ)' : '7 urgent (Pre-Sowing Cotton)',
           icon: FlaskConical,
           color: 'blue',
           targetTab: 'soil',
         },
         {
-          title: lang === 'hi' ? 'जारी किए गए सॉइल कार्ड' : 'Issued Health Cards',
+          title: lang === 'gu' ? 'ઇશ્યૂ કરેલા સોઇલ કાર્ડ' : lang === 'hi' ? 'जारी किए गए सॉइल कार्ड' : 'Issued Health Cards',
           value: '428 Cards',
-          subtext: 'Delivered digitally to farmers',
+          subtext: lang === 'gu' ? 'ખેડૂતોને સીધા મોકલાયા' : 'Delivered digitally to farmers',
           icon: Award,
           color: 'emerald',
           targetTab: 'soil',
         },
         {
-          title: lang === 'hi' ? 'औसत रिपोर्ट समय' : 'Avg Turnaround Time',
+          title: lang === 'gu' ? 'સરેરાશ રિપોર્ટ સમય' : lang === 'hi' ? 'औसत रिपोर्ट समय' : 'Avg Turnaround Time',
           value: '2.4 Days',
           subtext: 'Target SLA: < 3.0 Days',
           icon: Clock,
@@ -129,200 +179,200 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         },
       ],
       actions: [
-        { title: lang === 'hi' ? 'नमूना जांच रिकॉर्ड करें' : 'Record Test Results', subtitle: lang === 'hi' ? 'NPK व pH मान दर्ज करें' : 'Enter NPK & pH values', icon: FlaskConical, color: 'blue', tab: 'soil' },
-        { title: lang === 'hi' ? 'सॉइल हेल्थ कार्ड जारी करें' : 'Issue Soil Cards', subtitle: lang === 'hi' ? 'किसान को डिजिटल कार्ड भेजें' : 'Send digital card to farmer', icon: Award, color: 'emerald', tab: 'soil' },
-        { title: lang === 'hi' ? 'खाद सिफारिश तैयार करें' : 'Prescribe Dosage', subtitle: lang === 'hi' ? 'वैज्ञानिक उर्वरक सलाह' : 'Agronomist advisory', icon: FileCheck, color: 'harvest', tab: 'soil' },
-        { title: lang === 'hi' ? 'सरकारी लैब सब्सिडी' : 'Lab Grants & Subsidies', subtitle: lang === 'hi' ? 'परीक्षण अनुदान स्थिति' : 'Soil Mission funding', icon: IndianRupee, color: 'purple', tab: 'schemes' },
+        { title: lang === 'gu' ? 'ટેસ્ટ પરિણામ નોંધો' : 'Record Test Results', subtitle: lang === 'gu' ? 'NPK અને pH દાખલ કરો' : 'Enter NPK & pH values', icon: FlaskConical, color: 'blue', tab: 'soil' },
+        { title: lang === 'gu' ? 'સોઇલ કાર્ડ ઇશ્યૂ કરો' : 'Issue Soil Cards', subtitle: lang === 'gu' ? 'ખેડૂતને ડિજિટલ કાર્ડ મોકલો' : 'Send digital card to farmer', icon: Award, color: 'emerald', tab: 'soil' },
+        { title: lang === 'gu' ? 'ખાતર માત્રા નક્કી કરો' : 'Prescribe Dosage', subtitle: lang === 'gu' ? 'વૈજ્ઞાનિક ખાતર ભલામણ' : 'Agronomist advisory', icon: FileCheck, color: 'harvest', tab: 'soil' },
+        { title: lang === 'gu' ? 'સરકારી લેબ ગ્રાન્ટ' : 'Lab Grants & Subsidies', subtitle: lang === 'gu' ? 'સોઇલ મિશન સહાય સ્થિતિ' : 'Soil Mission funding', icon: IndianRupee, color: 'purple', tab: 'schemes' },
       ],
       alert: {
         type: 'info',
-        title: lang === 'hi' ? 'राष्ट्रीय मृदा स्वास्थ्य मिशन अपडेट: ' : 'Soil Mission SLA: ',
-        text: lang === 'hi'
-          ? 'खरीफ बुवाई पूर्व सभी मिट्टी नमूनों की डिजिटल रिपोर्ट 72 घंटे के भीतर किसान सेतु पोर्टल पर अपलोड करना अनिवार्य है।'
+        title: lang === 'gu' ? 'રાષ્ટ્રીય જમીન આરોગ્ય મિશન નોટિસ: ' : 'Soil Mission SLA: ',
+        text: lang === 'gu'
+          ? 'ખરીફ વાવણી પહેલાંના તમામ સેમ્પલ ૭૨ કલાકમાં તપાસીને પોર્ટલ પર અપલોડ કરવાના રહેશે.'
           : 'All pre-Kharif soil health samples must be processed and uploaded to Krishimitara portal within 72 hours.',
       },
     },
 
     TRANSPORTER: {
-      badge: lang === 'hi' ? '🚚 पंजीकृत कृषि परिवहन फ्लीट' : '🚚 Registered Agro Transport Fleet',
-      name: lang === 'hi' ? 'गुरकीरत लॉजिस्टिक्स व रूरल कार्गो' : 'Gurkirat Logistics & Rural Cargo',
-      title: lang === 'hi' ? '6 वाहन सक्रिय · 8-14 टन ट्रैक्टर व ट्रक' : '6 Active Vehicles · 8-14T Fleet',
-      location: lang === 'hi' ? 'लुधियाना व मध्य प्रदेश कॉरिडोर' : 'Punjab & Central MP Mandi Hub',
+      badge: lang === 'gu' ? '🚚 રજિસ્ટર્ડ કૃષિ ટ્રાન્સપોર્ટ ફ્લીટ' : lang === 'hi' ? '🚚 पंजीकृत कृषि परिवहन फ्लीट' : '🚚 Registered Agro Transport Fleet',
+      name: lang === 'gu' ? 'ગુરકીરત લોજિસ્ટિક્સ અને ગ્રામીણ કાર્ગો' : lang === 'hi' ? 'गुरकीरत लॉजिस्टिक्स व रूरल कार्गो' : 'Gurkirat Logistics & Rural Cargo',
+      title: lang === 'gu' ? '૬ વાહનો ઉપલબ્ધ · ૮-૧૪ ટન ટ્રેક્ટર અને ટ્રક' : lang === 'hi' ? '6 वाहन सक्रिय · 8-14 टन ट्रैक्टर व ट्रक' : '6 Active Vehicles · 8-14T Fleet',
+      location: lang === 'gu' ? 'માર્કેટ યાર્ડ અને ગ્રામીણ વિસ્તાર' : lang === 'hi' ? 'लुधियाना व मध्य प्रदेश कॉरिडोर' : 'Regional Mandi Hub',
       stats: [
         {
-          title: lang === 'hi' ? 'आज की मंडी बुकिंग' : "Today's Mandi Bookings",
+          title: lang === 'gu' ? 'આજની માર્કેટ બુકિંગ' : "Today's Mandi Bookings",
           value: '4 Trips',
-          subtext: '28.5 Tonnes wheat scheduled',
+          subtext: lang === 'gu' ? '૨૮.૫ ટન ઘઉં ટ્રાન્સપોર્ટ શિડ્યુલ' : '28.5 Tonnes wheat scheduled',
           icon: Truck,
           color: 'amber',
           targetTab: 'transport',
         },
         {
-          title: lang === 'hi' ? 'साप्ताहिक परिवहन आय' : 'Weekly Transit Revenue',
+          title: lang === 'gu' ? 'સાપ્તાહિક ભાડા આવક' : 'Weekly Transit Revenue',
           value: '₹34,800',
-          subtext: 'Average ₹42/km across 6 vehicles',
+          subtext: lang === 'gu' ? 'સરેરાશ ₹૪૨/કિ.મી. દર' : 'Average ₹42/km across 6 vehicles',
           icon: IndianRupee,
           color: 'emerald',
           targetTab: 'transport',
         },
         {
-          title: lang === 'hi' ? 'ड्राइवर रेटिंग' : 'Transporter Rating',
+          title: lang === 'gu' ? 'ડ્રાઇવર રેટિંગ' : 'Transporter Rating',
           value: '4.8 ★',
-          subtext: 'Based on 94 farmer trips',
+          subtext: lang === 'gu' ? '૯૪ સફળ ટ્રિપ્સના આધારે' : 'Based on 94 farmer trips',
           icon: ShieldCheck,
           color: 'harvest',
           targetTab: 'transport',
         },
       ],
       actions: [
-        { title: lang === 'hi' ? 'नया वाहन फ्लीट में जोड़ें' : 'Add Vehicle to Fleet', subtitle: lang === 'hi' ? 'ट्रैक्टर-ट्रॉली या पिकअप' : 'List truck or trolley', icon: Truck, color: 'amber', tab: 'transport' },
-        { title: lang === 'hi' ? 'मंडी बुकिंग स्वीकारें' : 'View Dispatch Requests', subtitle: lang === 'hi' ? 'किसानों के सीधे अनुरोध' : 'Direct farmer pickup orders', icon: CheckCircle2, color: 'emerald', tab: 'transport' },
-        { title: lang === 'hi' ? 'रूट व किराया तय करें' : 'Update Per-Km Rates', subtitle: lang === 'hi' ? 'पारदर्शी दूरी कैलकुलेटर' : 'Transparent route calculator', icon: TrendingUp, color: 'blue', tab: 'transport' },
-        { title: lang === 'hi' ? 'मंडी आवक भाव देखें' : 'Check APMC Arrivals', subtitle: lang === 'hi' ? 'भीड़ व लोडिंग समय' : 'Mandi congestion index', icon: BarChart3, color: 'harvest', tab: 'market' },
+        { title: lang === 'gu' ? 'નવું વાહન ઉમેરો' : 'Add Vehicle to Fleet', subtitle: lang === 'gu' ? 'ટ્રેક્ટર-ટ્રોલી કે પિકઅપ' : 'List truck or trolley', icon: Truck, color: 'amber', tab: 'transport' },
+        { title: lang === 'gu' ? 'ખેડૂત બુકિંગ સ્વીકારો' : 'View Dispatch Requests', subtitle: lang === 'gu' ? 'સીધા પિકઅપ ઓર્ડર' : 'Direct farmer pickup orders', icon: CheckCircle2, color: 'emerald', tab: 'transport' },
+        { title: lang === 'gu' ? 'પ્રતિ કિ.મી. દર અપડેટ કરો' : 'Update Per-Km Rates', subtitle: lang === 'gu' ? 'પારદર્શક ભાડું ગણતરી' : 'Transparent route calculator', icon: TrendingUp, color: 'blue', tab: 'transport' },
+        { title: lang === 'gu' ? 'માર્કેટ યાર્ડ આવક જુઓ' : 'Check APMC Arrivals', subtitle: lang === 'gu' ? 'ટ્રાફિક અને અનલોડિંગ સમય' : 'Mandi congestion index', icon: BarChart3, color: 'harvest', tab: 'market' },
       ],
       alert: {
         type: 'info',
-        title: lang === 'hi' ? 'सीहोर मंडी रूट सूचना: ' : 'Mandi Route Traffic Notice: ',
-        text: lang === 'hi'
-          ? 'सीहोर कृषि उपज मंडी में गेहूं की बंपर आवक जारी है। गेट नंबर 2 से भारी ट्रैक्टर-ट्रॉलियों का प्रवेश खुला है।'
-          : 'High grain inflow reported at Sehore APMC Mandi. Gate #2 designated for heavy tractor-trolley unloading.',
+        title: lang === 'gu' ? 'યાર્ડ ટ્રાફિક નોટિસ: ' : 'Mandi Route Notice: ',
+        text: lang === 'gu'
+          ? 'માર્કેટ યાર્ડમાં માલની પુષ્કળ આવક હોવાથી ગેટ નં. ૨ પરથી ભારે ટ્રેક્ટર-ટ્રોલીનો પ્રવેશ રહેશે.'
+          : 'High grain inflow reported at APMC Mandi. Gate #2 designated for heavy tractor-trolley unloading.',
       },
     },
 
     GOVERNMENT: {
-      badge: lang === 'hi' ? '🏛️ कृषि कल्याण व किसान विकास विभाग' : '🏛️ Department of Agriculture & Farmers Welfare',
-      name: lang === 'hi' ? 'डॉ. एस. के. वर्मा (जिला कृषि अधिकारी)' : 'Dr. S. K. Verma (District Agri Officer)',
-      title: lang === 'hi' ? 'जिला कृषि नोडल अधिकारी · मध्य प्रदेश' : 'District Nodal Officer · Madhya Pradesh',
-      location: lang === 'hi' ? 'कलेक्ट्रेट परिसर, भोपाल / सीहोर' : 'District Collectorate, Bhopal / Sehore',
+      badge: lang === 'gu' ? '🏛️ કૃષિ કલ્યાણ અને ખેડૂત વિકાસ વિભાગ' : '🏛️ Department of Agriculture & Farmers Welfare',
+      name: lang === 'gu' ? 'ડૉ. એસ. કે. વર્મા (જિલ્લા ખેતીવાડી અધિકારી)' : 'Dr. S. K. Verma (District Agri Officer)',
+      title: lang === 'gu' ? 'જિલ્લા નોડલ અધિકારી · કૃષિ નિયામક કચેરી' : 'District Nodal Officer · Directorate of Agri',
+      location: lang === 'gu' ? 'જિલ્લા કલેક્ટર કચેરી કેમ્પસ' : 'District Collectorate Complex',
       stats: [
         {
-          title: lang === 'hi' ? 'पीएम-किसान ई-केवाईसी सत्यापन' : 'PM-KISAN eKYC Verification',
+          title: lang === 'gu' ? 'PM-કિસાન eKYC વેરિફિકેશન' : 'PM-KISAN eKYC Verification',
           value: '94.2%',
-          subtext: '12,410 farmers verified in district',
+          subtext: lang === 'gu' ? '૧૨,૪૧૦ ખેડૂતો પ્રમાણિત' : '12,410 farmers verified in district',
           icon: Users,
           color: 'emerald',
           targetTab: 'schemes',
         },
         {
-          title: lang === 'hi' ? 'क्षेत्रीय फसल रोग अलर्ट' : 'District Pest Alerts',
+          title: lang === 'gu' ? 'જિલ્લા પાક રોગ એલર્ટ' : 'District Pest Alerts',
           value: '2 Active',
-          subtext: 'Yellow Rust advisory broadcasted',
+          subtext: lang === 'gu' ? 'યલો રસ્ટ એડવાઈઝરી જારી' : 'Yellow Rust advisory broadcasted',
           icon: Bug,
           color: 'red',
           targetTab: 'doctor',
         },
         {
-          title: lang === 'hi' ? 'मंडी मूल्य निगरानी' : 'Mandi MSP Surveillance',
+          title: lang === 'gu' ? 'ટેકાના ભાવ અને બજાર ભાવ' : 'MSP Surveillance',
           value: '₹2,820 (Wheat)',
-          subtext: 'Above MSP (₹2,275/Qtl)',
+          subtext: lang === 'gu' ? 'ટેકાના ભાવ (MSP) થી ઊંચો' : 'Above MSP (₹2,275/Qtl)',
           icon: BarChart3,
           color: 'blue',
           targetTab: 'market',
         },
       ],
       actions: [
-        { title: lang === 'hi' ? 'कृषि सलाह प्रसारित करें' : 'Broadcast Agri Advisory', subtitle: lang === 'hi' ? 'मौसम व कीट सुरक्षा चेतावनी' : 'Weather & pest outbreak alerts', icon: Send, color: 'blue', tab: 'doctor' },
-        { title: lang === 'hi' ? 'सरकारी योजनाएं प्रबंधित करें' : 'Manage Gov Schemes', subtitle: lang === 'hi' ? 'सब्सिडी व केसीसी आवेदन' : 'Approve KCC & Kusum grants', icon: Building2, color: 'purple', tab: 'schemes' },
-        { title: lang === 'hi' ? 'मंडी थोक भाव निगरानी' : 'Monitor Mandi Prices', subtitle: lang === 'hi' ? 'एमएसपी व बाजार भाव जांच' : 'Wholesale trade compliance', icon: TrendingUp, color: 'harvest', tab: 'market' },
-        { title: lang === 'hi' ? 'मृदा स्वास्थ्य सूचकांक' : 'Soil Health Index', subtitle: lang === 'hi' ? 'जिले की उर्वरता रिपोर्ट' : 'District nutrient mapping', icon: FlaskConical, color: 'emerald', tab: 'soil' },
+        { title: lang === 'gu' ? 'કૃષિ સલાહ પ્રસારિત કરો' : 'Broadcast Agri Advisory', subtitle: lang === 'gu' ? 'હવામાન અને રોગ એલર્ટ' : 'Weather & pest outbreak alerts', icon: Send, color: 'blue', tab: 'doctor' },
+        { title: lang === 'gu' ? 'સરકારી યોજનાઓ મંજૂર કરો' : 'Manage Gov Schemes', subtitle: lang === 'gu' ? 'સબસિડી અને KCC અરજીઓ' : 'Approve KCC & Kusum grants', icon: Building2, color: 'purple', tab: 'schemes' },
+        { title: lang === 'gu' ? 'બજાર ભાવ તપાસો' : 'Monitor Mandi Prices', subtitle: lang === 'gu' ? 'વેપારી નિયમોનું પાલન' : 'Wholesale trade compliance', icon: TrendingUp, color: 'harvest', tab: 'market' },
+        { title: lang === 'gu' ? 'જમીન ફળદ્રુપતા સૂચકાંક' : 'Soil Health Index', subtitle: lang === 'gu' ? 'જિલ્લા પોષકતત્વો મેપિંગ' : 'District nutrient mapping', icon: FlaskConical, color: 'emerald', tab: 'soil' },
       ],
       alert: {
         type: 'critical',
-        title: lang === 'hi' ? 'अधिकारिक निर्देश (Advisory Notice): ' : 'Official Notice: ',
-        text: lang === 'hi'
-          ? 'प्रधानमंत्री फसल बीमा योजना (PMFBY) क्लेम सत्यापन हेतु ब्लॉक स्तर पर शिविर 20 अप्रैल से आयोजित किए जाएंगे।'
+        title: lang === 'gu' ? 'સત્તાવાર સૂચના (PMFBY Notice): ' : 'Official Notice: ',
+        text: lang === 'gu'
+          ? 'પ્રધાનમંત્રી ફસલ બીમા યોજના (PMFBY) ક્લેમ ચકાસણી માટે તાલુકા સ્તરે કેમ્પ ૨૦ એપ્રિલથી યોજાશે.'
           : 'Block-level verification camps for PMFBY crop insurance claims will commence from April 20.',
       },
     },
 
     AGRO_COMPANY: {
-      badge: lang === 'hi' ? '🏢 कृषि इनपुट व थोक खरीददार' : '🏢 Agro Inputs & Direct Procurement Partner',
-      name: lang === 'hi' ? 'किसान एग्रो सीड्स एंड प्रोक्योरमेंट' : 'Kisan Agro Seeds & Procurement Corp',
-      title: lang === 'hi' ? 'प्रमाणित बीज विक्रेता व एफपीओ क्रेता' : 'Certified Seed Partner & FPO Buyer',
-      location: lang === 'hi' ? 'पुणे व इंदौर कॉर्पोरेट ऑफिस' : 'Pune & Indore Hub',
+      badge: lang === 'gu' ? '🏢 કૃષિ ઇનપુટ અને જથ્થાબંધ ખરીદદાર' : '🏢 Agro Inputs & Direct Procurement Partner',
+      name: lang === 'gu' ? 'કિસાન એગ્રો સીડ્સ અને પ્રોક્યોરમેન્ટ' : 'Kisan Agro Seeds & Procurement Corp',
+      title: lang === 'gu' ? 'પ્રમાણિત બિયારણ પાર્ટનર અને FPO બાયર' : 'Certified Seed Partner & FPO Buyer',
+      location: lang === 'gu' ? 'સેન્ટ્રલ વેપાર હબ' : 'Corporate Agri Trade Hub',
       stats: [
         {
-          title: lang === 'hi' ? 'सक्रिय फसल खरीद लॉट' : 'Active Farmer Crop Lots',
+          title: lang === 'gu' ? 'ખરીદ માટે તૈયાર પાક લોટ' : 'Active Farmer Crop Lots',
           value: '385 Qtl',
-          subtext: 'Sharbati Wheat & Organic Soybean',
+          subtext: lang === 'gu' ? 'શરબતી ઘઉં અને ઓર્ગેનિક સોયાબીન' : 'Sharbati Wheat & Organic Soybean',
           icon: Building2,
           color: 'harvest',
           targetTab: 'market',
         },
         {
-          title: lang === 'hi' ? 'सीधे किसान अनुबंध' : 'Contract Farmers',
+          title: lang === 'gu' ? 'સીધા કોન્ટ્રેક્ટ ખેડૂતો' : 'Contract Farmers',
           value: '64 Farmers',
-          subtext: 'Zero broker commission contract',
+          subtext: lang === 'gu' ? 'દલાલી વગર સીધા કરાર' : 'Zero broker commission contract',
           icon: Users,
           color: 'emerald',
           targetTab: 'market',
         },
         {
-          title: lang === 'hi' ? 'ट्रांसपोर्ट लॉजिस्टिक्स' : 'Dispatch Bookings',
+          title: lang === 'gu' ? 'ટ્રાન્સપોર્ટ ડિસ્પેચ' : 'Dispatch Bookings',
           value: '8 Trucks Out',
-          subtext: 'Central warehouse transit',
+          subtext: lang === 'gu' ? 'ગોડાઉન તરફ રવાના' : 'Central warehouse transit',
           icon: Truck,
           color: 'blue',
           targetTab: 'transport',
         },
       ],
       actions: [
-        { title: lang === 'hi' ? 'किसानों से सीधी खरीद' : 'Browse Farmer Lots', subtitle: lang === 'hi' ? 'मंडी से बेहतर भाव पर सौदा' : 'Direct procurement bids', icon: TrendingUp, color: 'emerald', tab: 'market' },
-        { title: lang === 'hi' ? 'थोक परिवहन बुक करें' : 'Book Bulk Transport', subtitle: lang === 'hi' ? 'गोदाम तक माल परिवहन' : 'Warehouse freight dispatch', icon: Truck, color: 'amber', tab: 'transport' },
-        { title: lang === 'hi' ? 'प्रमाणित बीज व खाद कैटलॉग' : 'Input Products Catalog', subtitle: lang === 'hi' ? 'उच्च गुणवत्ता वाले बीज' : 'Certified inputs supply', icon: Award, color: 'purple', tab: 'doctor' },
-        { title: lang === 'hi' ? 'सॉइल टेस्ट ग्रेडिंग देखें' : 'Inspect Soil Quality', subtitle: lang === 'hi' ? 'ऑर्गेनिक प्रमाणन जांच' : 'Organic certification index', icon: FlaskConical, color: 'blue', tab: 'soil' },
+        { title: lang === 'gu' ? 'ખેડૂતો પાસેથી સીધી ખરીદી' : 'Browse Farmer Lots', subtitle: lang === 'gu' ? 'યાર્ડ કરતાં સારા ભાવે સોદો' : 'Direct procurement bids', icon: TrendingUp, color: 'emerald', tab: 'market' },
+        { title: lang === 'gu' ? 'બલ્ક ટ્રાન્સપોર્ટ બુક કરો' : 'Book Bulk Transport', subtitle: lang === 'gu' ? 'ગોડાઉન સુધી માલ પરિવહન' : 'Warehouse freight dispatch', icon: Truck, color: 'amber', tab: 'transport' },
+        { title: lang === 'gu' ? 'સુધારેલા બિયારણ કેટલોગ' : 'Input Products Catalog', subtitle: lang === 'gu' ? 'પ્રમાણિત ગુણવત્તાવાળા બિયારણ' : 'Certified inputs supply', icon: Award, color: 'purple', tab: 'doctor' },
+        { title: lang === 'gu' ? 'જમીન ગુણવત્તા તપાસો' : 'Inspect Soil Quality', subtitle: lang === 'gu' ? 'ઓર્ગેનિક સર્ટિફિકેશન' : 'Organic certification index', icon: FlaskConical, color: 'blue', tab: 'soil' },
       ],
       alert: {
         type: 'info',
-        title: lang === 'hi' ? 'थोक खरीद आवश्यकता: ' : 'Procurement Requirement: ',
-        text: lang === 'hi'
-          ? 'सीहोर व देवास क्षेत्र से 200 क्विंटल शरबती गेहूं (C-306 किस्म) की तत्काल खरीद हेतु आवेदन आमंत्रित हैं।'
-          : 'Seeking immediate direct procurement of 200 quintals Sharbati Wheat (C-306) from Sehore/Dewas farmers.',
+        title: lang === 'gu' ? 'જથ્થાબંધ ખરીદી જરૂરિયાત: ' : 'Procurement Requirement: ',
+        text: lang === 'gu'
+          ? '૨૦૦ ક્વિન્ટલ શરબતી ઘઉંની તાત્કાલિક ખરીદી માટે સીધા ખેડૂતો પાસેથી ટેન્ડર મંગાવવામાં આવે છે.'
+          : 'Seeking immediate direct procurement of 200 quintals Sharbati Wheat from regional farmers.',
       },
     },
 
     SPONSOR_NGO: {
-      badge: lang === 'hi' ? '🤝 ग्रामीण विकास ट्रस्ट व एनजीओ' : '🤝 Rural Upliftment Trust & NGO Partner',
-      name: lang === 'hi' ? 'ग्रामीण किसान विकास फाउंडेशन' : 'Gramin Kisan Development Foundation',
-      title: lang === 'hi' ? 'सीएसआर एग्रीकल्चर एंपावरमेंट प्रोजेक्ट' : 'CSR Agri Empowerment Project',
-      location: lang === 'hi' ? 'मध्य प्रदेश व राजस्थान क्लस्टर' : 'MP & Rajasthan Rural Cluster',
+      badge: lang === 'gu' ? '🤝 ગ્રામીણ વિકાસ ટ્રસ્ટ અને NGO' : '🤝 Rural Upliftment Trust & NGO Partner',
+      name: lang === 'gu' ? 'ગ્રામીણ કિસાન વિકાસ ફાઉન્ડેશન' : 'Gramin Kisan Development Foundation',
+      title: lang === 'gu' ? 'CSR એગ્રીકલ્ચર સશક્તિકરણ પ્રોજેક્ટ' : 'CSR Agri Empowerment Project',
+      location: lang === 'gu' ? 'ગ્રામીણ ખેડૂત ક્લસ્ટર' : 'Rural Cluster',
       stats: [
         {
-          title: lang === 'hi' ? 'प्रायोजित मृदा परीक्षण' : 'Subsidized Soil Tests',
+          title: lang === 'gu' ? 'મફત જમીન ચકાસણી સહાય' : 'Subsidized Soil Tests',
           value: '150 Tests',
-          subtext: '100% grant funded for marginal farmers',
+          subtext: lang === 'gu' ? 'નાના ખેડૂતો માટે ૧૦૦% ગ્રાન્ટ' : '100% grant funded for marginal farmers',
           icon: FlaskConical,
           color: 'blue',
           targetTab: 'soil',
         },
         {
-          title: lang === 'hi' ? 'प्रशिक्षित महिला किसान' : 'Trained Women Farmers',
+          title: lang === 'gu' ? 'તાલીમ મેળવેલ મહિલા ખેડૂતો' : 'Trained Women Farmers',
           value: '320 Trained',
-          subtext: 'Organic pest management workshop',
+          subtext: lang === 'gu' ? 'કુદરતી ખેતી તાલીમ શિબિર' : 'Organic pest management workshop',
           icon: Users,
           color: 'emerald',
           targetTab: 'schemes',
         },
         {
-          title: lang === 'hi' ? 'कुल सीएसआर अनुदान' : 'CSR Grant Deployed',
+          title: lang === 'gu' ? 'કુલ ફાળવેલ CSR ગ્રાન્ટ' : 'CSR Grant Deployed',
           value: '₹8,50,000',
-          subtext: 'Solar pumps & drip subsidies',
+          subtext: lang === 'gu' ? 'સોલાર પંપ અને ડ્રિપ સબસિડી' : 'Solar pumps & drip subsidies',
           icon: IndianRupee,
           color: 'purple',
           targetTab: 'schemes',
         },
       ],
       actions: [
-        { title: lang === 'hi' ? 'मुफ्त मिट्टी जांच स्पॉन्सर करें' : 'Sponsor Free Soil Tests', subtitle: lang === 'hi' ? 'सीमांत किसानों हेतु सहायता' : 'Grants for small farmers', icon: FlaskConical, color: 'blue', tab: 'soil' },
-        { title: lang === 'hi' ? 'सोलर पंप सहायता योजना' : 'Solar Pump Assistance', subtitle: lang === 'hi' ? 'कुसुम योजना टॉप-अप अनुदान' : 'PM-Kusum top-up subsidy', icon: Sun, color: 'harvest', tab: 'schemes' },
-        { title: lang === 'hi' ? 'कृषि कार्यशालाएं देखें' : 'View Training Workshops', subtitle: lang === 'hi' ? 'प्राकृतिक खेती प्रशिक्षण' : 'Natural farming camps', icon: Calendar, color: 'emerald', tab: 'doctor' },
-        { title: lang === 'hi' ? 'पारदर्शी किसान डायरी' : 'Community Impact Khata', subtitle: lang === 'hi' ? 'बचत व आय वृद्धि आंकड़े' : 'Track farmer income growth', icon: BookOpen, color: 'amber', tab: 'khata' },
+        { title: lang === 'gu' ? 'મફત જમીન ટેસ્ટ સ્પોન્સર કરો' : 'Sponsor Free Soil Tests', subtitle: lang === 'gu' ? 'નાના ખેડૂતોને સીધી સહાય' : 'Grants for small farmers', icon: FlaskConical, color: 'blue', tab: 'soil' },
+        { title: lang === 'gu' ? 'સોલાર પંપ ટોપ-અપ ગ્રાન્ટ' : 'Solar Pump Assistance', subtitle: lang === 'gu' ? 'કુસુમ યોજના વધારાની સબસિડી' : 'PM-Kusum top-up subsidy', icon: Sun, color: 'harvest', tab: 'schemes' },
+        { title: lang === 'gu' ? 'ખેડૂત તાલીમ શિબિરો' : 'View Training Workshops', subtitle: lang === 'gu' ? 'ઓર્ગેનિક ફાર્મિંગ કેમ્પ' : 'Natural farming camps', icon: Calendar, color: 'emerald', tab: 'doctor' },
+        { title: lang === 'gu' ? 'ખેડૂત આવક વૃદ્ધિ આંકડા' : 'Community Impact Khata', subtitle: lang === 'gu' ? 'બચત અને નફાકારકતા ટ્રેકિંગ' : 'Track farmer income growth', icon: BookOpen, color: 'amber', tab: 'khata' },
       ],
       alert: {
         type: 'info',
-        title: lang === 'hi' ? 'सीएसआर अनुदान घोषणा: ' : 'CSR Impact Announcement: ',
-        text: lang === 'hi'
-          ? 'छोटे व सीमांत किसानों हेतु 200 नए सोलर पंपों पर 20% अतिरिक्त एनजीओ सब्सिडी को स्वीकृति प्रदान कर दी गई है।'
+        title: lang === 'gu' ? 'CSR સહાય જાહેરાત: ' : 'CSR Impact Announcement: ',
+        text: lang === 'gu'
+          ? 'નાના અને સીમાંત ખેડૂતો માટે ૨૦૦ નવા સોલાર પંપ પર ૨૦% વધારાની NGO સબસિડી મંજૂર કરવામાં આવી છે.'
           : 'Approved additional 20% CSR grant on 200 solar irrigation pumps for marginal farmers.',
       },
     },
@@ -332,39 +382,39 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
   return (
     <div className="space-y-6">
-      {/* Top Welcome & Role Identity Banner */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-agri-900 via-agri-800 to-agri-950 text-white p-6 md:p-8 shadow-xl border border-agri-700">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-harvest-400/10 rounded-full blur-3xl pointer-events-none" />
+      {/* Top Welcome & Role Identity Banner - Fresh Light Green Gradient */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-500 text-white p-6 md:p-8 shadow-lg shadow-emerald-700/10 border border-emerald-400/30">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-agri-800/90 border border-agri-600 text-harvest-300 text-xs font-semibold uppercase tracking-wider mb-3">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-bold uppercase tracking-wider mb-3">
               <span>{currentProfile.badge}</span>
               <span>•</span>
               <span>{currentProfile.location}</span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-display font-extrabold text-white">
+            <h1 className="text-2xl md:text-3xl font-display font-extrabold text-white tracking-tight">
               {currentProfile.name}
             </h1>
-            <p className="mt-1 text-sm text-agri-200 max-w-xl font-medium">
+            <p className="mt-1 text-sm text-emerald-50 max-w-xl font-medium">
               {currentProfile.title}
             </p>
           </div>
 
-          {/* Weather & Date Card */}
-          <div className="glass-dark p-4 rounded-2xl flex items-center space-x-4 border border-agri-600/50 shadow-inner shrink-0">
-            <div className="p-3 rounded-xl bg-harvest-400/20 text-harvest-300">
+          {/* Weather & Date Card - Light Glass Pill */}
+          <div className="bg-white/20 backdrop-blur-md p-4 rounded-2xl flex items-center space-x-4 border border-white/30 shadow-inner shrink-0">
+            <div className="p-3 rounded-xl bg-white/25 text-white">
               <Sun className="w-8 h-8 animate-spin-slow" />
             </div>
             <div>
-              <div className="text-xs uppercase font-bold text-agri-300 tracking-wider">
+              <div className="text-xs uppercase font-extrabold text-emerald-100 tracking-wider">
                 {t.dashboard.weather}
               </div>
               <div className="text-lg font-display font-bold text-white">
-                31°C · Sunny (साफ मौसम)
+                31°C · {lang === 'gu' ? 'ચોખ્ખું હવામાન' : lang === 'hi' ? 'साफ मौसम' : 'Sunny'}
               </div>
-              <div className="text-[11px] text-agri-200 mt-0.5 max-w-[200px] truncate">
-                {new Date().toLocaleDateString(lang === 'hi' ? 'hi-IN' : 'en-IN', {
+              <div className="text-[11px] text-emerald-100 mt-0.5 max-w-[200px] truncate">
+                {new Date().toLocaleDateString(lang === 'gu' ? 'gu-IN' : lang === 'hi' ? 'hi-IN' : 'en-IN', {
                   month: 'short',
                   day: 'numeric',
                   year: 'numeric',
@@ -383,23 +433,23 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             <div
               key={idx}
               onClick={() => onNavigate(stat.targetTab)}
-              className="cursor-pointer glass-panel p-5 rounded-2xl shadow-sm hover:shadow-md transition-all border border-stone-200 hover:border-agri-500 group"
+              className="cursor-pointer bg-white p-5 rounded-3xl shadow-sm hover:shadow-md transition-all border border-emerald-100 hover:border-emerald-400 group"
             >
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-stone-500 uppercase tracking-wider">
+                <span className="text-xs font-bold text-stone-500 uppercase tracking-wider">
                   {stat.title}
                 </span>
                 <div
-                  className={`p-2 rounded-xl transition ${
+                  className={`p-2.5 rounded-2xl transition ${
                     stat.color === 'emerald'
-                      ? 'bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white'
+                      ? 'bg-emerald-50 text-emerald-700 group-hover:bg-emerald-600 group-hover:text-white'
                       : stat.color === 'blue'
-                      ? 'bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white'
+                      ? 'bg-sky-50 text-sky-700 group-hover:bg-sky-600 group-hover:text-white'
                       : stat.color === 'red'
-                      ? 'bg-red-50 text-red-600 group-hover:bg-red-600 group-hover:text-white'
+                      ? 'bg-rose-50 text-rose-700 group-hover:bg-rose-600 group-hover:text-white'
                       : stat.color === 'amber'
                       ? 'bg-amber-50 text-amber-700 group-hover:bg-amber-600 group-hover:text-white'
-                      : 'bg-harvest-50 text-harvest-700 group-hover:bg-harvest-500 group-hover:text-white'
+                      : 'bg-emerald-50 text-emerald-700 group-hover:bg-emerald-600 group-hover:text-white'
                   }`}
                 >
                   <Icon className="w-5 h-5" />
@@ -423,7 +473,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             ? 'bg-amber-50 border-amber-200 text-amber-900'
             : currentProfile.alert.type === 'critical'
             ? 'bg-rose-50 border-rose-200 text-rose-900'
-            : 'bg-blue-50 border-blue-200 text-blue-900'
+            : 'bg-emerald-50 border-emerald-200 text-emerald-950'
         }`}
       >
         <AlertTriangle
@@ -432,7 +482,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               ? 'text-amber-600'
               : currentProfile.alert.type === 'critical'
               ? 'text-rose-600'
-              : 'text-blue-600'
+              : 'text-emerald-700'
           }`}
         />
         <div>
@@ -445,12 +495,14 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       <div>
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-base font-display font-bold text-stone-900">
-            {lang === 'hi'
+            {lang === 'gu'
+              ? `${currentProfile.name.split(' ')[0]} કાર્યક્ષેત્ર અને સાધનો`
+              : lang === 'hi'
               ? `${currentProfile.name.split(' ')[0]} कार्यक्षेत्र व टूल्स`
-              : `${role.replace('_', ' ')} Operations & Quick Utilities`}
+              : `${role.replace('_', ' ')} Operations & Utilities`}
           </h2>
           <span className="text-xs text-stone-500">
-            {lang === 'hi' ? 'भूमिका के अनुसार अनुकूलित' : 'Tailored for active role'}
+            {lang === 'gu' ? 'પસંદ કરેલ રોલ મુજબ અનુકૂળ' : lang === 'hi' ? 'भूमिका के अनुसार अनुकूलित' : 'Tailored for active role'}
           </span>
         </div>
 
@@ -461,21 +513,21 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               <button
                 key={idx}
                 onClick={() => onNavigate(act.tab)}
-                className="flex flex-col items-center justify-center p-4 rounded-2xl bg-white border border-stone-200 hover:border-agri-500 hover:shadow-md transition text-center group"
+                className="flex flex-col items-center justify-center p-4 rounded-3xl bg-white border border-emerald-100 hover:border-emerald-500 hover:shadow-md transition text-center group"
               >
                 <div
                   className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-2 group-hover:scale-105 transition ${
                     act.color === 'emerald'
-                      ? 'bg-emerald-100 text-emerald-800'
+                      ? 'bg-emerald-50 text-emerald-700'
                       : act.color === 'blue'
-                      ? 'bg-blue-100 text-blue-800'
+                      ? 'bg-sky-50 text-sky-700'
                       : act.color === 'red'
-                      ? 'bg-red-100 text-red-800'
+                      ? 'bg-rose-50 text-rose-700'
                       : act.color === 'amber'
-                      ? 'bg-amber-100 text-amber-800'
+                      ? 'bg-amber-50 text-amber-700'
                       : act.color === 'purple'
-                      ? 'bg-purple-100 text-purple-800'
-                      : 'bg-harvest-100 text-harvest-800'
+                      ? 'bg-purple-50 text-purple-700'
+                      : 'bg-emerald-50 text-emerald-700'
                   }`}
                 >
                   <Icon className="w-6 h-6" />
